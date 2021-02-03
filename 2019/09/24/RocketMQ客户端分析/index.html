@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 5.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
   <meta name="google-site-verification" content="41huvDJ29CMarUJluxci2yxHjjifbVBCRE49vnEzYwk">
 
@@ -30,11 +30,26 @@
 <meta property="og:site_name" content="静坐常思己过 &lt;br&gt; 闲谈莫论人非">
 <meta property="og:description" content="客户端(client)RocketMQ的客户端（client）由Producer和Consumer两部分组成，其中Producer负责生产消息，Consumer负责消费消息。在实际应用场景中，Producer一般是业务系统，Consumer一般是后台系统。拿电商模型举例，会员系统和订单系统是Producer，负责发布消息；短信系统和配送系统是Consumer，它们订阅相应Topic，消费对应信息，">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/model.jpg">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/sendSyncCall.jpg">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/sendSync.png">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/sendAsyncCall.jpg">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/sendAsync.png">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/sendOnewayCall.jpg">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/sendOneway.png">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/sendImpl.jpg">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/pullAndpush.png">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/pullSyncCall.jpg">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/pullSyncImpl.jpg">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/pullAsyncCall.jpg">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/pullAsyncImpl.jpg">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/pushConsumerListener.jpg">
 <meta property="article:published_time" content="2019-09-24T02:22:25.000Z">
 <meta property="article:modified_time" content="2020-01-29T01:49:04.890Z">
 <meta property="article:author" content="wsc">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://codingpages.sicheng.wang/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/model.jpg">
 
 <link rel="canonical" href="http://codingpages.sicheng.wang/2019/09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/">
 
@@ -263,37 +278,37 @@
 
       
         <h1 id="客户端-client"><a href="#客户端-client" class="headerlink" title="客户端(client)"></a>客户端(client)</h1><p>RocketMQ的客户端（client）由Producer和Consumer两部分组成，其中Producer负责生产消息，Consumer负责消费消息。在实际应用场景中，Producer一般是业务系统，Consumer一般是后台系统。拿电商模型举例，会员系统和订单系统是Producer，负责发布消息；短信系统和配送系统是Consumer，它们订阅相应Topic，消费对应信息，如下图所示。</p>
-
+<img src="/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/model.jpg" class>
 <a id="more"></a>
 
 <h3 id="1-消息生产者（Producer）"><a href="#1-消息生产者（Producer）" class="headerlink" title="1 消息生产者（Producer）"></a>1 消息生产者（Producer）</h3><p>负责生产消息，一般由业务系统负责生产消息。一个消息生产者会把业务应用系统里产生的消息发送到broker服务器。RocketMQ提供多种发送方式，同步发送、异步发送、单向发送。同步和异步方式均需要Broker返回确认信息，单向发送不需要。</p>
 <h4 id="（1）-同步发送"><a href="#（1）-同步发送" class="headerlink" title="（1）    同步发送"></a>（1）    同步发送</h4><p>调用：DefaultMQProducer的send方法</p>
-
+<img src="/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/sendSyncCall.jpg" class>
 <p>Producer发送出消息后，必须在Broker发回响应后才能发送下一个消息。这种可靠性同步地发送方式使用的比较广泛，比如：重要的消息通知，短信通知。</p>
-
+<img src="/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/sendSync.png" class>
 <h4 id="（2）-异步发送"><a href="#（2）-异步发送" class="headerlink" title="（2）    异步发送"></a>（2）    异步发送</h4><p>调用：DefaultMQProducer的send方法，由参数SendCallback作为回调函数异步处理Broker响应。</p>
-
+<img src="/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/sendAsyncCall.jpg" class>
 <p>Producer发送出消息后，不等待Broker发回响应即可接着发送下一个消息。异步消息通常用在对响应时间敏感的业务场景，即发送端不能容忍长时间地等待Broker的响应。</p>
-
+<img src="/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/sendAsync.png" class>
 <h4 id="（3）-单项发送"><a href="#（3）-单项发送" class="headerlink" title="（3）    单项发送"></a>（3）    单项发送</h4><p>调用：DefaultMQProducer的sendOneway方法</p>
-
+<img src="/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/sendOnewayCall.jpg" class>
 <p>Producer只负责发送消息，不接受Broker的响应。这种方式主要用在不特别关心发送结果的场景，例如日志发送。</p>
-
+<img src="/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/sendOneway.png" class>
 <p>上述三种发送模式实现：DefaultMQProducerImpl的sendKernelImpl方法，由参数CommunitionMode指定发送模式。</p>
-
+<img src="/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/sendImpl.jpg" class>
 <h3 id="2-消息消费者（Consumer）"><a href="#2-消息消费者（Consumer）" class="headerlink" title="2 消息消费者（Consumer）"></a>2 消息消费者（Consumer）</h3><p>负责消费消息，一般是后台系统负责异步消费。一个消息消费者会从Broker服务器拉取消息、并将其提供给应用程序。从用户应用的角度而言提供了两种消费形式：拉取式消费、推动式消费。</p>
-
+<img src="/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/pullAndpush.png" class>
 <h4 id="（1）-拉取式消费"><a href="#（1）-拉取式消费" class="headerlink" title="（1）    拉取式消费"></a>（1）    拉取式消费</h4><p>Consumer消费的一种类型，应用通常主动调用Consumer的拉消息方法从Broker服务器拉消息、主动权由应用控制。一旦获取了批量消息，应用就会启动消费过程。</p>
 <h5 id="1-gt-同步拉取"><a href="#1-gt-同步拉取" class="headerlink" title="1&gt;    同步拉取"></a>1&gt;    同步拉取</h5><p>调用：DefaultMQPullConsumer的pullBlockIfNotFound方法。</p>
-
+<img src="/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/pullSyncCall.jpg" class>
 <p>实现：DefaultMQPullConsumerImpl的pullSyncImpl方法。</p>
-
+<img src="/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/pullSyncImpl.jpg" class>
 <h5 id="2-gt-异步拉取"><a href="#2-gt-异步拉取" class="headerlink" title="2&gt;    异步拉取"></a>2&gt;    异步拉取</h5><p>调用：DefaultMQPullConsumer的pullBlockIfNotFound方法，由参数PullCallback作为回调函数异步处理Broker响应。</p>
-
+<img src="/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/pullAsyncCall.jpg" class>
 <p>实现：DefaultMQPullConsumerImpl的pullAsyncImpl方法，由参数PullCallback作为回调函数异步处理Broker响应。</p>
-
+<img src="/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/pullAsyncImpl.jpg" class>
 <h4 id="（2）-推动式消费"><a href="#（2）-推动式消费" class="headerlink" title="（2）    推动式消费"></a>（2）    推动式消费</h4><p>Consumer消费的一种类型，该模式下Broker收到数据后会主动推送给消费端，该消费模式一般实时性较高。</p>
-
+<img src="/.wang//09/24/RocketMQ%E5%AE%A2%E6%88%B7%E7%AB%AF%E5%88%86%E6%9E%90/pushConsumerListener.jpg" class>
 <p>push为被动消费类型，pull为主动消费类型，push方式最终还是会从broker中pull消息。不同于pull的是，push首先要注册消费监听器，当监听器处触发后才开始消费消息，所以被称为“被动”消费。故最终实现仍为上述的DefaultMQPullConsumerImpl的pullSyncImpl方法和pullAsyncImpl方法。</p>
 
     </div>

@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 5.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
   <meta name="google-site-verification" content="41huvDJ29CMarUJluxci2yxHjjifbVBCRE49vnEzYwk">
 
@@ -30,11 +30,13 @@
 <meta property="og:site_name" content="静坐常思己过 &lt;br&gt; 闲谈莫论人非">
 <meta property="og:description" content="Neo4j不同于传统的关系数据库管理系统，Neo4j是一个无架构的数据库。在开始添加数据之前，并不需要定义表和关系。Neo4j具有嵌入式、高性能、轻量级等优势。  数据结构 节点（Node）：包含属性 关系（Relationship）：包含属性">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//02/23/Neo4j%E5%9F%BA%E7%A1%80/neo4j.png">
 <meta property="article:published_time" content="2020-02-23T10:55:22.000Z">
 <meta property="article:modified_time" content="2020-03-03T01:48:43.410Z">
 <meta property="article:author" content="wsc">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://codingpages.sicheng.wang/.wang//02/23/Neo4j%E5%9F%BA%E7%A1%80/neo4j.png">
 
 <link rel="canonical" href="http://codingpages.sicheng.wang/2020/02/23/Neo4j%E5%9F%BA%E7%A1%80/">
 
@@ -281,7 +283,7 @@
 <a id="more"></a>
 
 <p>节点与节点通过关系联系，关系是单向的。</p>
-
+<img src="/.wang//02/23/Neo4j%E5%9F%BA%E7%A1%80/neo4j.png" class>
 
 
 <h4 id="增"><a href="#增" class="headerlink" title="增"></a>增</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 添加节点</span><br><span class="line">create (x:Student&#123;id:1, age:14&#125;)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 添加属性</span><br><span class="line">match(x:Student&#123;id:1&#125;) set x.grade&#x3D;5 return x</span><br><span class="line">match(x:Student&#123;id:1&#125;) set x+&#x3D;&#123;grade:5&#125; return x</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 对现有节点添加关系 </span><br><span class="line">match (x:Student&#123;id:1&#125;),(y:Teacher&#123;id:2&#125;) create (x)-[r:Teached&#123;name:&#39;English&#39;&#125;]-&gt;(y)</span><br><span class="line">match (x:Student),(y:Teacher) where x.id&#x3D;1 and y.id&#x3D;2 create (x)-[r:Teach&#123;name:&#39;English&#39;&#125;]-&gt;(y)</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; 添加节点并添加关系</span><br><span class="line">create (x:Student&#123;id:1&#125;)-[r:Teach&#123;name:&#39;English&#39;&#125;]-&gt;(y:Teacher&#123;id:2&#125;)</span><br></pre></td></tr></table></figure>

@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 5.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
   <meta name="google-site-verification" content="41huvDJ29CMarUJluxci2yxHjjifbVBCRE49vnEzYwk">
 
@@ -30,15 +30,15 @@
 <meta property="og:site_name" content="静坐常思己过 &lt;br&gt; 闲谈莫论人非">
 <meta property="og:description" content="OSI七层协议 应用层  网络服务与最终用户的一个接口。  协议：HTTP FTP TFTP SMTP SNMP DNS TELNET HTTPS POP3 DHCP 表示层  数据的表示、安全、压缩。（在五层模型里面已经合并到了应用层）  格式：JPEG、ASCll、EBCDIC、加密格式等 会话层  建立、管理、终止会话。（在五层模型里面已经合并到了应用层）  对应主机进程，指本地主机与远程主">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://codingpages.sicheng.wang/2020/11/11/%E8%AE%A1%E7%BD%91%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/asset_img/osi.png">
-<meta property="og:image" content="http://codingpages.sicheng.wang/2020/11/11/%E8%AE%A1%E7%BD%91%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/asset_img/socket.png">
-<meta property="og:image" content="http://codingpages.sicheng.wang/2020/11/11/%E8%AE%A1%E7%BD%91%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/asset_img/tcp_farewell.png">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//osi.png">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//socket.png">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//tcp_farewell.png">
 <meta property="article:published_time" content="2020-11-11T02:46:05.000Z">
 <meta property="article:modified_time" content="2020-11-19T06:58:19.870Z">
 <meta property="article:author" content="wsc">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://codingpages.sicheng.wang/2020/11/11/%E8%AE%A1%E7%BD%91%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/asset_img/osi.png">
+<meta name="twitter:image" content="http://codingpages.sicheng.wang/.wang//osi.png">
 
 <link rel="canonical" href="http://codingpages.sicheng.wang/2020/11/11/%E8%AE%A1%E7%BD%91%E7%9F%A5%E8%AF%86%E7%82%B9%E6%80%BB%E7%BB%93/">
 
@@ -288,7 +288,7 @@
 <li>数据链路层<br>  建立逻辑连接、进行硬件地址寻址、差错校验 [3]  等功能。（由底层网络定义协议）<br>  将比特组合成字节进而组合成帧，用MAC地址访问介质，错误发现但不能纠正。</li>
 <li>物理层<br>  建立、维护、断开物理连接。（由底层网络定义协议）</li>
 </ul>
-<img src="asset_img/osi.png">
+<img src="/.wang//osi.png">
 
 <h4 id="TCP应用程序系统调用序列"><a href="#TCP应用程序系统调用序列" class="headerlink" title="TCP应用程序系统调用序列"></a>TCP应用程序系统调用序列</h4><table>
 <thead>
@@ -322,11 +322,11 @@
 <td>send() TCP类型的数据接收</td>
 </tr>
 </tbody></table>
-<img src="asset_img/socket.png">
+<img src="/.wang//socket.png">
 
 
 
-<h4 id="TIME-WAIT状态"><a href="#TIME-WAIT状态" class="headerlink" title="TIME_WAIT状态"></a>TIME_WAIT状态</h4><img src="asset_img/tcp_farewell.png">
+<h4 id="TIME-WAIT状态"><a href="#TIME-WAIT状态" class="headerlink" title="TIME_WAIT状态"></a>TIME_WAIT状态</h4><img src="/.wang//tcp_farewell.png">
 
 <p>第四次挥手的ACK可能丢失，发送ACK的主机必须等待2MSL(Max Segement Livetime)时间后才能关闭连接。</p>
 <p>出现太多TIME_WAIT的后果：在高并发短连接的TCP服务器上，会出现大量的socket处于TIME_WAIT状态，导致socket资源不足，服务器资源利用率低。</p>

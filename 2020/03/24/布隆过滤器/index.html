@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 5.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
   <meta name="google-site-verification" content="41huvDJ29CMarUJluxci2yxHjjifbVBCRE49vnEzYwk">
 
@@ -30,13 +30,13 @@
 <meta property="og:site_name" content="静坐常思己过 &lt;br&gt; 闲谈莫论人非">
 <meta property="og:description" content="构成由比特数组（位图）和哈希函数构成。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://codingpages.sicheng.wang/2020/03/24/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/asset_img/bloom_filter.jpg">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//bloom_filter.jpg">
 <meta property="article:published_time" content="2020-03-24T02:33:37.000Z">
 <meta property="article:modified_time" content="2020-03-25T07:39:07.840Z">
 <meta property="article:author" content="wsc">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://codingpages.sicheng.wang/2020/03/24/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/asset_img/bloom_filter.jpg">
+<meta name="twitter:image" content="http://codingpages.sicheng.wang/.wang//bloom_filter.jpg">
 
 <link rel="canonical" href="http://codingpages.sicheng.wang/2020/03/24/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/">
 
@@ -276,7 +276,7 @@
         <h2 id="构成"><a href="#构成" class="headerlink" title="构成"></a>构成</h2><p>由比特数组（位图）和哈希函数构成。</p>
 <a id="more"></a>
 
-<img src="asset_img/bloom_filter.jpg" width="70%"/>
+<img src="/.wang//bloom_filter.jpg" width="70%">
 
 <p>对每个元素进行多次不同的哈希，将得到的哈希值对位图大小取余，然后将位图上对应位置置为1。查询时同样对元素进行哈希并取余，查看对应位置是否全为1。如果全为1，则元素可能存在，否则元素一定不存在。</p>
 <h2 id="误判率"><a href="#误判率" class="headerlink" title="误判率"></a>误判率</h2><p>$$p={(1-e^{-\frac{nk}{m}})}^k$$</p>

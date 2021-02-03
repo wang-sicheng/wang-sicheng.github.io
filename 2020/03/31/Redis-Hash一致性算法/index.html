@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 5.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
   <meta name="google-site-verification" content="41huvDJ29CMarUJluxci2yxHjjifbVBCRE49vnEzYwk">
 
@@ -30,20 +30,20 @@
 <meta property="og:site_name" content="静坐常思己过 &lt;br&gt; 闲谈莫论人非">
 <meta property="og:description" content="前言当缓存数据量达到一定程度时，需要使用Redis集群来提高读写性能，可采用两种方式：  读写分离（主从复制）  分库分表        主从复制全量同步">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://codingpages.sicheng.wang/2020/03/31/Redis-Hash%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95/asset_img/copy.png">
-<meta property="og:image" content="http://codingpages.sicheng.wang/2020/03/31/Redis-Hash%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95/asset_img/hash_ring.jpg">
-<meta property="og:image" content="http://codingpages.sicheng.wang/2020/03/31/Redis-Hash%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95/asset_img/node.jpg">
-<meta property="og:image" content="http://codingpages.sicheng.wang/2020/03/31/Redis-Hash%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95/asset_img/object.jpg">
-<meta property="og:image" content="http://codingpages.sicheng.wang/2020/03/31/Redis-Hash%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95/asset_img/down.jpg">
-<meta property="og:image" content="http://codingpages.sicheng.wang/2020/03/31/Redis-Hash%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95/asset_img/up.jpg">
-<meta property="og:image" content="http://codingpages.sicheng.wang/2020/03/31/Redis-Hash%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95/asset_img/tilt.jpg">
-<meta property="og:image" content="http://codingpages.sicheng.wang/2020/03/31/Redis-Hash%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95/asset_img/virtual.jpg">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//copy.png">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//hash_ring.jpg">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//node.jpg">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//object.jpg">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//down.jpg">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//up.jpg">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//tilt.jpg">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//virtual.jpg">
 <meta property="article:published_time" content="2020-03-31T02:21:41.000Z">
 <meta property="article:modified_time" content="2020-04-01T07:44:36.020Z">
 <meta property="article:author" content="wsc">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://codingpages.sicheng.wang/2020/03/31/Redis-Hash%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95/asset_img/copy.png">
+<meta name="twitter:image" content="http://codingpages.sicheng.wang/.wang//copy.png">
 
 <link rel="canonical" href="http://codingpages.sicheng.wang/2020/03/31/Redis-Hash%E4%B8%80%E8%87%B4%E6%80%A7%E7%AE%97%E6%B3%95/">
 
@@ -285,28 +285,28 @@
 <li><p>读写分离（主从复制）</p>
 </li>
 <li><p>分库分表</p>
-  <img src="asset_img/copy.png" />
+  <img src="/.wang//copy.png">
 
-  <div align=center> 主从复制全量同步 </div>
+  <div align="center"> 主从复制全量同步 </div>
 
 </li>
 </ul>
 <a id="more"></a>
 
 <p>通常，我们将Redis服务器分成两两一组，每组一个主节点和一个从节点，主节点负责处理写命令，从节点负责处理读命令。每组节点缓存不同的数据（分库分表）。假设若干Redis服务器分成了n组，如果不采用任何算法的话，那么每次查询数据都需要遍历n组Redis服务器。最简单的想法是采用Hash算法（类似Java的HashMap，先Hash再对长度取余），但是这在有Redis服务器下线或上线时会出现大量数据失效的情况，所以出现了Hash环一致性算法。</p>
-<img src="asset_img/hash_ring.jpg" />
+<img src="/.wang//hash_ring.jpg">
 
-<img src="asset_img/node.jpg" />
+<img src="/.wang//node.jpg">
 
-<img src="asset_img/object.jpg" />
+<img src="/.wang//object.jpg">
 
-<img src="asset_img/down.jpg" />
+<img src="/.wang//down.jpg">
 
-<img src="asset_img/up.jpg" />
+<img src="/.wang//up.jpg">
 
-<img src="asset_img/tilt.jpg" />
+<img src="/.wang//tilt.jpg">
 
-<img src="asset_img/virtual.jpg" />
+<img src="/.wang//virtual.jpg">
 
 
 

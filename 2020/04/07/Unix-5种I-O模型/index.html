@@ -6,8 +6,8 @@
 <meta name="theme-color" content="#222">
 <meta name="generator" content="Hexo 5.3.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon32.ico">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon16.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
   <link rel="mask-icon" href="/images/logo.svg" color="#222">
   <meta name="google-site-verification" content="41huvDJ29CMarUJluxci2yxHjjifbVBCRE49vnEzYwk">
 
@@ -30,18 +30,18 @@
 <meta property="og:site_name" content="静坐常思己过 &lt;br&gt; 闲谈莫论人非">
 <meta property="og:description" content="概念阻塞：请求不能立即得到应答，需要等待。非阻塞：请求立即得到应答，不需要等待。同步I&#x2F;O：同步I&#x2F;O操作引起请求进程阻塞，直到I&#x2F;O操作完成。异步I&#x2F;O：异步I&#x2F;O操作不引起请求进程阻塞。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://codingpages.sicheng.wang/2020/04/07/Unix-5%E7%A7%8DI-O%E6%A8%A1%E5%9E%8B/asset_img/block.png">
-<meta property="og:image" content="http://codingpages.sicheng.wang/2020/04/07/Unix-5%E7%A7%8DI-O%E6%A8%A1%E5%9E%8B/asset_img/nonblock.png">
-<meta property="og:image" content="http://codingpages.sicheng.wang/2020/04/07/Unix-5%E7%A7%8DI-O%E6%A8%A1%E5%9E%8B/asset_img/multiplexing.png">
-<meta property="og:image" content="http://codingpages.sicheng.wang/2020/04/07/Unix-5%E7%A7%8DI-O%E6%A8%A1%E5%9E%8B/asset_img/signal.png">
-<meta property="og:image" content="http://codingpages.sicheng.wang/2020/04/07/Unix-5%E7%A7%8DI-O%E6%A8%A1%E5%9E%8B/asset_img/aio.png">
-<meta property="og:image" content="http://codingpages.sicheng.wang/2020/04/07/Unix-5%E7%A7%8DI-O%E6%A8%A1%E5%9E%8B/asset_img/compare.png">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//block.png">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//nonblock.png">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//multiplexing.png">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//signal.png">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//aio.png">
+<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//compare.png">
 <meta property="article:published_time" content="2020-04-07T11:44:17.000Z">
 <meta property="article:modified_time" content="2020-04-07T12:04:53.690Z">
 <meta property="article:author" content="wsc">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://codingpages.sicheng.wang/2020/04/07/Unix-5%E7%A7%8DI-O%E6%A8%A1%E5%9E%8B/asset_img/block.png">
+<meta name="twitter:image" content="http://codingpages.sicheng.wang/.wang//block.png">
 
 <link rel="canonical" href="http://codingpages.sicheng.wang/2020/04/07/Unix-5%E7%A7%8DI-O%E6%A8%A1%E5%9E%8B/">
 
@@ -266,29 +266,29 @@
         <h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>阻塞：请求不能立即得到应答，需要等待。<br>非阻塞：请求立即得到应答，不需要等待。<br>同步I/O：同步I/O操作引起请求进程阻塞，直到I/O操作完成。<br>异步I/O：异步I/O操作不引起请求进程阻塞。</p>
 <a id="more"></a>
 
-<h2 id="Unix-I-O模型"><a href="#Unix-I-O模型" class="headerlink" title="Unix I/O模型"></a>Unix I/O模型</h2><img src="asset_img/block.png" width="80%" />
+<h2 id="Unix-I-O模型"><a href="#Unix-I-O模型" class="headerlink" title="Unix I/O模型"></a>Unix I/O模型</h2><img src="/.wang//block.png" width="80%">
 
-<div align=center> 阻塞I/O </div>
+<div align="center"> 阻塞I/O </div>
 
-<img src="asset_img/nonblock.png" width="80%" />
+<img src="/.wang//nonblock.png" width="80%">
 
-<div align=center> 非阻塞I/O </div>
+<div align="center"> 非阻塞I/O </div>
 
-<img src="asset_img/multiplexing.png" width="60%" />
+<img src="/.wang//multiplexing.png" width="60%">
 
-<div align=center> I/O复用 </div>
+<div align="center"> I/O复用 </div>
 
-<img src="asset_img/signal.png" width="80%" />
+<img src="/.wang//signal.png" width="80%">
 
-<div align=center> 信号驱动I/O </div>
+<div align="center"> 信号驱动I/O </div>
 
-<img src="asset_img/aio.png" width="80%" />
+<img src="/.wang//aio.png" width="80%">
 
-<div align=center> 异步I/O </div>
+<div align="center"> 异步I/O </div>
 
-<img src="asset_img/compare.png" width="80%" />
+<img src="/.wang//compare.png" width="80%">
 
-<div align=center> 比较 </div>
+<div align="center"> 比较 </div>
 
 
 
