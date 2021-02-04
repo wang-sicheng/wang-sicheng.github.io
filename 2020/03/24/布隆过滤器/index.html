@@ -30,13 +30,13 @@
 <meta property="og:site_name" content="静">
 <meta property="og:description" content="构成由比特数组（位图）和哈希函数构成。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://codingpages.sicheng.wang/.wang//bloom_filter.jpg">
+<meta property="og:image" content="http://codingpages.sicheng.wang/2020/03/24/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/bloom_filter.jpg">
 <meta property="article:published_time" content="2020-03-24T02:33:37.000Z">
 <meta property="article:modified_time" content="2020-03-25T07:39:07.840Z">
 <meta property="article:author" content="wsc">
 <meta property="article:tag" content="debug">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://codingpages.sicheng.wang/.wang//bloom_filter.jpg">
+<meta name="twitter:image" content="http://codingpages.sicheng.wang/2020/03/24/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/bloom_filter.jpg">
 
 <link rel="canonical" href="http://codingpages.sicheng.wang/2020/03/24/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/">
 
@@ -63,22 +63,8 @@
     </script>
 
 
-  <script>
-    var _hmt = _hmt || [];
-    (function() {
-      var hm = document.createElement("script");
-      hm.src = "https://hm.baidu.com/hm.js?62fde8b0e4d436719b66efe1c8c30141";
-      var s = document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(hm, s);
-    })();
-  </script>
 
 
-  <script>
-    !function(e,t,n,g,i){e[i]=e[i]||function(){(e[i].q=e[i].q||[]).push(arguments)},n=t.createElement("script"),tag=t.getElementsByTagName("script")[0],n.async=1,n.src=('https:'==document.location.protocol?'https://':'http://')+g,tag.parentNode.insertBefore(n,tag)}(window,document,"script","assets.growingio.com/2.1/gio.js","gio");
-    gio('init', 'baf40d0931bf4fcb', {});
-    gio('send');
-  </script>
 
 
   <noscript>
@@ -256,13 +242,6 @@
             </span>
 
           
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
 
         </div>
       </header>
@@ -276,7 +255,7 @@
         <h2 id="构成"><a href="#构成" class="headerlink" title="构成"></a>构成</h2><p>由比特数组（位图）和哈希函数构成。</p>
 <a id="more"></a>
 
-<img src="/.wang//bloom_filter.jpg" width="70%">
+<img src="/2020/03/24/%E5%B8%83%E9%9A%86%E8%BF%87%E6%BB%A4%E5%99%A8/bloom_filter.jpg" width="70%">
 
 <p>对每个元素进行多次不同的哈希，将得到的哈希值对位图大小取余，然后将位图上对应位置置为1。查询时同样对元素进行哈希并取余，查看对应位置是否全为1。如果全为1，则元素可能存在，否则元素一定不存在。</p>
 <h2 id="误判率"><a href="#误判率" class="headerlink" title="误判率"></a>误判率</h2><p>$$p={(1-e^{-\frac{nk}{m}})}^k$$</p>
@@ -428,31 +407,8 @@
 </div>
 
         
-<div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-user"></i>
-      </span>
-      <span class="site-uv" title="总访客量">
-        <span id="busuanzi_value_site_uv"></span>
-      </span>
-    </span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-eye"></i>
-      </span>
-      <span class="site-pv" title="总访问量">
-        <span id="busuanzi_value_site_pv"></span>
-      </span>
-    </span>
-</div>
 
 
-  <div style="display: none;">
-    <script src="//s95.cnzz.com/z_stat.php?id=1278668519&web_id=1278668519"></script>
-  </div>
 
 
 
