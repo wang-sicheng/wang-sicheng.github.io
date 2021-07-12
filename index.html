@@ -216,10 +216,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">发表于</span>
-              
 
-              <time title="创建时间：2021-07-09 10:58:24 / 修改时间：11:04:32" itemprop="dateCreated datePublished" datetime="2021-07-09T10:58:24+08:00">2021-07-09</time>
+              <time title="创建时间：2021-07-09 10:58:24" itemprop="dateCreated datePublished" datetime="2021-07-09T10:58:24+08:00">2021-07-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-07-12 10:14:03" itemprop="dateModified" datetime="2021-07-12T10:14:03+08:00">2021-07-12</time>
+              </span>
 
           
 
@@ -232,7 +238,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h2 id="String"><a href="#String" class="headerlink" title="String"></a>String</h2><table>
+          <h2 id="常用类型转换"><a href="#常用类型转换" class="headerlink" title="常用类型转换"></a>常用类型转换</h2><table>
 <thead>
 <tr>
 <th></th>
@@ -250,14 +256,14 @@
 <tr>
 <td>string</td>
 <td>Int64</td>
-<td>int, err := strconv.ParseInt(string, 10, 64)</td>
+<td>int64, err := strconv.ParseInt(string, 10, 64)</td>
 <td>string := strconv.FormatInt(int64, 10)</td>
 </tr>
 <tr>
-<td></td>
-<td></td>
-<td></td>
-<td></td>
+<td>string</td>
+<td>float64</td>
+<td>float64, err := strconv.ParseFloat(string, 64)</td>
+<td>string := strconv.FormatFloat(float64, ‘E’, -1, 64)</td>
 </tr>
 </tbody></table>
 
