@@ -193,248 +193,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://codingpages.sicheng.wang/2021/07/12/Go%E4%BD%BF%E7%94%A8%E5%8C%BF%E5%90%8Dstruct/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/taiyi.jpg">
-      <meta itemprop="name" content="wsc">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="静">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/12/Go%E4%BD%BF%E7%94%A8%E5%8C%BF%E5%90%8Dstruct/" class="post-title-link" itemprop="url">Go使用匿名struct</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-07-12 10:32:58 / 修改时间：10:37:33" itemprop="dateCreated datePublished" datetime="2021-07-12T10:32:58+08:00">2021-07-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ul>
-<li><p>var</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> wang <span class="keyword">struct</span> &#123;Id <span class="keyword">int</span>; Name <span class="keyword">string</span>&#125;</span><br><span class="line">wang.Id = <span class="number">123</span></span><br><span class="line">wang.Name = <span class="string">&quot;schwang&quot;</span></span><br></pre></td></tr></table></figure>
-
-</li>
-<li><p>直接初始化</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">json.Marshal(<span class="keyword">struct</span> &#123;Id <span class="keyword">int</span>; Name <span class="keyword">string</span>&#125;&#123;<span class="number">123</span>, <span class="string">&quot;schwang&quot;</span>&#125;)</span><br><span class="line"></span><br><span class="line">json.Marshal(<span class="keyword">struct</span>&#123;</span><br><span class="line">  Id <span class="keyword">int</span></span><br><span class="line">  Name <span class="keyword">string</span></span><br><span class="line">&#125;&#123;<span class="number">123</span>, <span class="string">&quot;schwang&quot;</span>&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://codingpages.sicheng.wang/2021/07/12/Go%E5%8F%8D%E5%B0%84reflect/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/taiyi.jpg">
-      <meta itemprop="name" content="wsc">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="静">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/12/Go%E5%8F%8D%E5%B0%84reflect/" class="post-title-link" itemprop="url">Go反射reflect</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2021-07-12 10:26:28 / 修改时间：10:30:37" itemprop="dateCreated datePublished" datetime="2021-07-12T10:26:28+08:00">2021-07-12</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/itbsl/p/10551880.html">https://www.cnblogs.com/itbsl/p/10551880.html</a></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://codingpages.sicheng.wang/2021/07/09/Go%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/taiyi.jpg">
-      <meta itemprop="name" content="wsc">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="静">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/07/09/Go%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/" class="post-title-link" itemprop="url">Go类型转换</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2021-07-09 10:58:24" itemprop="dateCreated datePublished" datetime="2021-07-09T10:58:24+08:00">2021-07-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-07-12 10:25:05" itemprop="dateModified" datetime="2021-07-12T10:25:05+08:00">2021-07-12</time>
-              </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="常用类型转换"><a href="#常用类型转换" class="headerlink" title="常用类型转换"></a>常用类型转换</h2><table>
-<thead>
-<tr>
-<th></th>
-<th>方法</th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>string</td>
-<td>int</td>
-<td>int, err := strconv.Atoi(string)</td>
-<td>string := strconv.Itoa(int)</td>
-</tr>
-<tr>
-<td>string</td>
-<td>Int64</td>
-<td>int64, err := strconv.ParseInt(string, 10, 64)</td>
-<td>string := strconv.FormatInt(int64, 10)</td>
-</tr>
-<tr>
-<td>string</td>
-<td>float64</td>
-<td>float64, err := strconv.ParseFloat(string, 64)</td>
-<td>string := strconv.FormatFloat(float64, ‘E’, -1, 64)</td>
-</tr>
-<tr>
-<td>string</td>
-<td>[]byte</td>
-<td>[]byte(string)</td>
-<td>string(b)</td>
-</tr>
-</tbody></table>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://codingpages.sicheng.wang/2021/07/09/%E6%8E%A7%E5%88%B6Goroutine%E5%B9%B6%E5%8F%91%E6%95%B0%E9%87%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -981,6 +739,254 @@
   
   
 
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://codingpages.sicheng.wang/2020/11/01/Spring%E9%85%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/taiyi.jpg">
+      <meta itemprop="name" content="wsc">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="静">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/11/01/Spring%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">Spring配置</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-11-01 07:25:18" itemprop="dateCreated datePublished" datetime="2020-11-01T07:25:18+08:00">2020-11-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-19 14:58:51" itemprop="dateModified" datetime="2020-11-19T14:58:51+08:00">2020-11-19</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="lt-context-annotation-config-gt"><a href="#lt-context-annotation-config-gt" class="headerlink" title="&lt;context:annotation-config /&gt;"></a>&lt;context:annotation-config /&gt;</h4><p>用于激活已经在Spring容器里注册过的bean上面的注解，即向Spring注册</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">AutowiredAnnotationBeanPostProcessor（识别@Autowired）</span><br><span class="line">CommonAnnotationBeanPostProcessor（识别@Resource、@PostConstruct、@PreDestroy）</span><br><span class="line">PersistenceAnnotationBeanPostProcessor（识别@PersistenceContext）</span><br><span class="line">RequiredAnnotationBeanPostProcessor（识别@Required）</span><br></pre></td></tr></table></figure>
+<p>想要使用上述注解，必须声明对应Processor的bean。传统注册方式为：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor&quot;</span>/&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.beans.factory.annotation.CommonAnnotationBeanPostProcessor&quot;</span>/&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.beans.factory.annotation.PersistenceAnnotationBeanPostProcessor&quot;</span>/&gt;</span> </span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">class</span>=<span class="string">&quot;org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor&quot;</span>/&gt;</span> </span><br></pre></td></tr></table></figure>
+<p>现在使用 <code>&lt;context:annotation-config/&gt; </code> 即可。</p>
+<h4 id="lt-context-component-scan-base-package-”XX-XX”-gt"><a href="#lt-context-component-scan-base-package-”XX-XX”-gt" class="headerlink" title="&lt;context:component-scan base-package=”XX.XX”/&gt;"></a>&lt;context:component-scan base-package=”XX.XX”/&gt;</h4><p>除了具有 <code>&lt;context:annotation-config/&gt;</code> 的功能之外，还具有自动将带有@component,@service,@Repository等注解的对象注册到Spring容器中的功能。</p>
+<p>当 <code>&lt;context:annotation-config/&gt;</code> 和 <code>&lt;context:component-scan&gt;</code> 同时存在时，前者会被忽略。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://codingpages.sicheng.wang/2020/10/07/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/taiyi.jpg">
+      <meta itemprop="name" content="wsc">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="静">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/07/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/" class="post-title-link" itemprop="url">树状数组</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-10-07 17:01:11" itemprop="dateCreated datePublished" datetime="2020-10-07T17:01:11+08:00">2020-10-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-10-08 08:03:02" itemprop="dateModified" datetime="2020-10-08T08:03:02+08:00">2020-10-08</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h3><p>对长度为n的数组A进行如下操作：</p>
+<ol>
+<li>求数组前缀和A[0]</li>
+<li>修改指定下标的元素的值</li>
+</ol>
+<h3 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h3><ul>
+<li><p>遍历</p>
+<ul>
+<li>O(n)</li>
+<li>O(1)</li>
+</ul>
+</li>
+<li><p>辅助数组B记录前缀和</p>
+<ul>
+<li>O(1)</li>
+<li>O(n)</li>
+</ul>
+</li>
+<li><p>树状数组C</p>
+<ul>
+<li>O(logn)</li>
+<li>O(logn)</li>
+</ul>
+</li>
+</ul>
+<h3 id="结构"><a href="#结构" class="headerlink" title="结构"></a>结构</h3><img src="/2020/10/07/%E6%A0%91%E7%8A%B6%E6%95%B0%E7%BB%84/1.png" width="50%">
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://codingpages.sicheng.wang/2020/10/05/Spring%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/taiyi.jpg">
+      <meta itemprop="name" content="wsc">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="静">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/10/05/Spring%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/" class="post-title-link" itemprop="url">Spring常用注解</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-10-05 22:41:44 / 修改时间：22:57:09" itemprop="dateCreated datePublished" datetime="2020-10-05T22:41:44+08:00">2020-10-05</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Spring/" itemprop="url" rel="index"><span itemprop="name">Spring</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>使用注解之前要开启自动扫描功能，其中base-package为需要扫描的包(含子包)。</p>
+<p><code>&lt;context:component-scan base-package=&quot;org.example.spring&quot;/&gt; </code></p>
+<h4 id="Autowired"><a href="#Autowired" class="headerlink" title="@Autowired"></a>@Autowired</h4><p>​    @Autowired注解要去寻找的是一个Bean，其作用是为了消除getter/setter方法与bean属性中的property。当Spring发现@Autowired注解时，将自动在代码上下文中找到和其匹配（默认是类型匹配）的Bean，并自动注入到相应的地方去。配合@Qualifier注解来指定Bean的名称。</p>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2020/10/05/Spring%E5%B8%B8%E7%94%A8%E6%B3%A8%E8%A7%A3/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
   </div>
 
   
@@ -1053,14 +1059,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">64</span>
+          <span class="site-state-item-count">61</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-count">13</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">

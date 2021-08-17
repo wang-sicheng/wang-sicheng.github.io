@@ -1,26 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Git基本操作</title>
-    <url>/2020/03/04/Git%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
-    <content><![CDATA[<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git config --list					<span class="comment"># 查看配置</span></span><br><span class="line">git config --global user.name wang-sicheng		<span class="comment"># 设置用户名</span></span><br><span class="line">git config --global user.email 247450210@qq.com		<span class="comment"># 设置邮箱</span></span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-
-<h3 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git remote -v			<span class="comment"># 查看远程仓库</span></span><br><span class="line">git remote add upstream url	<span class="comment"># 添加远程仓库</span></span><br></pre></td></tr></table></figure>
-<h3 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git branch			<span class="comment"># 查看本地分支</span></span><br><span class="line">git branch -r			<span class="comment"># 查看远程分支</span></span><br><span class="line">git branch -a			<span class="comment"># 查看所有分支</span></span><br><span class="line">git branch new			<span class="comment"># 创建分支</span></span><br><span class="line">git branch -d dev		<span class="comment"># 删除分支</span></span><br><span class="line">git branch -m old new	<span class="comment"># 重命名分支</span></span><br><span class="line">git branch -d -r dev		<span class="comment"># 删除远程分支</span></span><br><span class="line"></span><br><span class="line">git checkout -b dev		<span class="comment"># 创建分支并切换</span></span><br><span class="line">git checkout dev		<span class="comment"># 切换分支</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h3 id="推送"><a href="#推送" class="headerlink" title="推送"></a>推送</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="版本信息"><a href="#版本信息" class="headerlink" title="版本信息"></a>版本信息</h3><p>查看版本号</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span></span><br><span class="line"></span><br><span class="line">git reflog</span><br></pre></td></tr></table></figure>
-<h3 id="一般流程"><a href="#一般流程" class="headerlink" title="一般流程"></a>一般流程</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span>	</span><br><span class="line">git remote -v 			<span class="comment"># 查看远程仓库</span></span><br><span class="line">git remote add upstream url 	<span class="comment"># 添加远程仓库</span></span><br><span class="line">git checkout -b newCheckout 	<span class="comment"># 创建分支</span></span><br><span class="line">git pull upstream master 	<span class="comment"># 拉取原仓库新代码到master分支</span></span><br><span class="line"></span><br><span class="line">git status</span><br><span class="line">git add .</span><br><span class="line">git commit -m “comment<span class="string">&quot;</span></span><br><span class="line"><span class="string">git push -u origin newCheckout 	# 将master推到自己的远程仓库</span></span><br></pre></td></tr></table></figure>
-<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>修改git log</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git config --global alias.lg <span class="string">&quot;log --color --graph --pretty=format:&#x27;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#x27; --abbrev-commit&quot;</span></span><br></pre></td></tr></table></figure>
-<p>修改上一次commit的注释</p>
-<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git commit —amend -m “这是新的提交日志<span class="string">&quot; </span></span><br></pre></td></tr></table></figure>]]></content>
-      <categories>
-        <category>Git</category>
-      </categories>
-  </entry>
-  <entry>
     <title>Git传输大文件——git lfs</title>
     <url>/2020/02/23/Git%E4%BC%A0%E8%BE%93%E5%A4%A7%E6%96%87%E4%BB%B6%E2%80%94%E2%80%94git-lfs/</url>
     <content><![CDATA[<h4 id="Git-LFS（Git-Large-File-Storage）"><a href="#Git-LFS（Git-Large-File-Storage）" class="headerlink" title="Git LFS（Git Large File Storage）"></a>Git LFS（Git Large File Storage）</h4><p>Git将文件push至远程仓库时，要求单个文件小于100MB。如果单个文件大于100MB，则需要使用git lfs。</p>
@@ -55,69 +35,24 @@
       </categories>
   </entry>
   <entry>
-    <title>Go使用匿名struct</title>
-    <url>/2021/07/12/Go%E4%BD%BF%E7%94%A8%E5%8C%BF%E5%90%8Dstruct/</url>
-    <content><![CDATA[<ul>
-<li><p>var</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> wang <span class="keyword">struct</span> &#123;Id <span class="keyword">int</span>; Name <span class="keyword">string</span>&#125;</span><br><span class="line">wang.Id = <span class="number">123</span></span><br><span class="line">wang.Name = <span class="string">&quot;schwang&quot;</span></span><br></pre></td></tr></table></figure>
+    <title>Git基本操作</title>
+    <url>/2020/03/04/Git%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C/</url>
+    <content><![CDATA[<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git config --list					<span class="comment"># 查看配置</span></span><br><span class="line">git config --global user.name wang-sicheng		<span class="comment"># 设置用户名</span></span><br><span class="line">git config --global user.email 247450210@qq.com		<span class="comment"># 设置邮箱</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
 
-</li>
-<li><p>直接初始化</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">json.Marshal(<span class="keyword">struct</span> &#123;Id <span class="keyword">int</span>; Name <span class="keyword">string</span>&#125;&#123;<span class="number">123</span>, <span class="string">&quot;schwang&quot;</span>&#125;)</span><br><span class="line"></span><br><span class="line">json.Marshal(<span class="keyword">struct</span>&#123;</span><br><span class="line">  Id <span class="keyword">int</span></span><br><span class="line">  Name <span class="keyword">string</span></span><br><span class="line">&#125;&#123;<span class="number">123</span>, <span class="string">&quot;schwang&quot;</span>&#125;)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-]]></content>
+<h3 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git remote -v			<span class="comment"># 查看远程仓库</span></span><br><span class="line">git remote add upstream url	<span class="comment"># 添加远程仓库</span></span><br></pre></td></tr></table></figure>
+<h3 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git branch			<span class="comment"># 查看本地分支</span></span><br><span class="line">git branch -r			<span class="comment"># 查看远程分支</span></span><br><span class="line">git branch -a			<span class="comment"># 查看所有分支</span></span><br><span class="line">git branch new			<span class="comment"># 创建分支</span></span><br><span class="line">git branch -d dev		<span class="comment"># 删除分支</span></span><br><span class="line">git branch -m old new	<span class="comment"># 重命名分支</span></span><br><span class="line">git branch -d -r dev		<span class="comment"># 删除远程分支</span></span><br><span class="line"></span><br><span class="line">git checkout -b dev		<span class="comment"># 创建分支并切换</span></span><br><span class="line">git checkout dev		<span class="comment"># 切换分支</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="推送"><a href="#推送" class="headerlink" title="推送"></a>推送</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</span><br></pre></td></tr></table></figure>
+<h3 id="版本信息"><a href="#版本信息" class="headerlink" title="版本信息"></a>版本信息</h3><p>查看版本号</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">log</span></span><br><span class="line"></span><br><span class="line">git reflog</span><br></pre></td></tr></table></figure>
+<h3 id="一般流程"><a href="#一般流程" class="headerlink" title="一般流程"></a>一般流程</h3><figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git <span class="built_in">clone</span>	</span><br><span class="line">git remote -v 			<span class="comment"># 查看远程仓库</span></span><br><span class="line">git remote add upstream url 	<span class="comment"># 添加远程仓库</span></span><br><span class="line">git checkout -b newCheckout 	<span class="comment"># 创建分支</span></span><br><span class="line">git pull upstream master 	<span class="comment"># 拉取原仓库新代码到master分支</span></span><br><span class="line"></span><br><span class="line">git status</span><br><span class="line">git add .</span><br><span class="line">git commit -m “comment<span class="string">&quot;</span></span><br><span class="line"><span class="string">git push -u origin newCheckout 	# 将master推到自己的远程仓库</span></span><br></pre></td></tr></table></figure>
+<h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><p>修改git log</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git config --global alias.lg <span class="string">&quot;log --color --graph --pretty=format:&#x27;%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)&lt;%an&gt;%Creset&#x27; --abbrev-commit&quot;</span></span><br></pre></td></tr></table></figure>
+<p>修改上一次commit的注释</p>
+<figure class="highlight sh"><table><tr><td class="code"><pre><span class="line">git commit —amend -m “这是新的提交日志<span class="string">&quot; </span></span><br></pre></td></tr></table></figure>]]></content>
       <categories>
-        <category>Go</category>
+        <category>Git</category>
       </categories>
-  </entry>
-  <entry>
-    <title>Go反射reflect</title>
-    <url>/2021/07/12/Go%E5%8F%8D%E5%B0%84reflect/</url>
-    <content><![CDATA[<p><a href="https://www.cnblogs.com/itbsl/p/10551880.html">https://www.cnblogs.com/itbsl/p/10551880.html</a></p>
-]]></content>
-      <categories>
-        <category>Go</category>
-      </categories>
-  </entry>
-  <entry>
-    <title>Go类型转换</title>
-    <url>/2021/07/09/Go%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/</url>
-    <content><![CDATA[<h2 id="常用类型转换"><a href="#常用类型转换" class="headerlink" title="常用类型转换"></a>常用类型转换</h2><table>
-<thead>
-<tr>
-<th></th>
-<th>方法</th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody><tr>
-<td>string</td>
-<td>int</td>
-<td>int, err := strconv.Atoi(string)</td>
-<td>string := strconv.Itoa(int)</td>
-</tr>
-<tr>
-<td>string</td>
-<td>Int64</td>
-<td>int64, err := strconv.ParseInt(string, 10, 64)</td>
-<td>string := strconv.FormatInt(int64, 10)</td>
-</tr>
-<tr>
-<td>string</td>
-<td>float64</td>
-<td>float64, err := strconv.ParseFloat(string, 64)</td>
-<td>string := strconv.FormatFloat(float64, ‘E’, -1, 64)</td>
-</tr>
-<tr>
-<td>string</td>
-<td>[]byte</td>
-<td>[]byte(string)</td>
-<td>string(b)</td>
-</tr>
-</tbody></table>
-]]></content>
   </entry>
   <entry>
     <title>HashMap</title>
@@ -272,6 +207,26 @@
       </categories>
   </entry>
   <entry>
+    <title>NPM Error: gyp: No Xcode or CLT version detected</title>
+    <url>/2020/02/22/NPM-Error-gyp-No-Xcode-or-CLT-version-detected/</url>
+    <content><![CDATA[<h5 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h5><p>mac的npm安装谷歌和百度的站点地图时，会出现 gyp: No Xcode or CLT version detected!</p>
+<a id="more"></a>
+
+<p>具体如下：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wsc@mbp ⮀ ~/Hexo ⮀ npm install hexo-generator-baidu-sitemap --save</span><br><span class="line">npm WARN deprecated core-js@1.2.7: core-js@&lt;3 is no longer maintained and not recommended <span class="keyword">for</span> usage due to the number of issues. Please, upgrade your dependencies to the actual version of core-js@3.</span><br><span class="line"></span><br><span class="line">&gt; fsevents@1.2.11 install /Users/wsc/Hexo/node_modules/hexo-generator-baidu-sitemap/node_modules/fsevents</span><br><span class="line">&gt; node-gyp rebuild</span><br><span class="line"></span><br><span class="line">No receipt <span class="keyword">for</span> <span class="string">&#x27;com.apple.pkg.CLTools_Executables&#x27;</span> found at <span class="string">&#x27;/&#x27;</span>.</span><br><span class="line"></span><br><span class="line">No receipt <span class="keyword">for</span> <span class="string">&#x27;com.apple.pkg.DeveloperToolsCLILeo&#x27;</span> found at <span class="string">&#x27;/&#x27;</span>.</span><br><span class="line"></span><br><span class="line">No receipt <span class="keyword">for</span> <span class="string">&#x27;com.apple.pkg.DeveloperToolsCLI&#x27;</span> found at <span class="string">&#x27;/&#x27;</span>.</span><br><span class="line"></span><br><span class="line">gyp: No Xcode or CLT version detected!</span><br><span class="line">gyp ERR! configure error</span><br><span class="line">gyp ERR! stack Error: `gyp` failed with <span class="built_in">exit</span> code: 1</span><br><span class="line">gyp ERR! stack     at ChildProcess.onCpExit (/usr/<span class="built_in">local</span>/lib/node_modules/npm/node_modules/node-gyp/lib/configure.js:351:16)</span><br><span class="line">gyp ERR! stack     at ChildProcess.emit (events.js:321:20)</span><br><span class="line">gyp ERR! stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:275:12)</span><br><span class="line">gyp ERR! System Darwin 19.3.0</span><br><span class="line">gyp ERR! <span class="built_in">command</span> <span class="string">&quot;/usr/local/Cellar/node/13.6.0/bin/node&quot;</span> <span class="string">&quot;/usr/local/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js&quot;</span> <span class="string">&quot;rebuild&quot;</span></span><br><span class="line">gyp ERR! cwd /Users/wsc/Hexo/node_modules/hexo-generator-baidu-sitemap/node_modules/fsevents</span><br><span class="line">gyp ERR! node -v v13.6.0</span><br><span class="line">gyp ERR! node-gyp -v v5.0.5</span><br><span class="line">gyp ERR! not ok</span><br><span class="line">npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@1.2.11 (node_modules/hexo-generator-baidu-sitemap/node_modules/fsevents):</span><br><span class="line">npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@1.2.11 install: `node-gyp rebuild`</span><br><span class="line">npm WARN optional SKIPPING OPTIONAL DEPENDENCY: Exit status 1</span><br></pre></td></tr></table></figure>
+<h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo rm -rf $(xcode-select -print-path)</span><br><span class="line">xcode-select --install</span><br></pre></td></tr></table></figure>
+<h5 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h5><blockquote>
+<p><a href="https://www.cnblogs.com/zhennann/p/12272058.html">https://www.cnblogs.com/zhennann/p/12272058.html</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://github.com/schnerd/d3-scale-cluster/issues/7">https://github.com/schnerd/d3-scale-cluster/issues/7</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://github.com/nodejs/node-gyp/blob/master/macOS_Catalina.md">https://github.com/nodejs/node-gyp/blob/master/macOS_Catalina.md</a></p>
+</blockquote>
+]]></content>
+  </entry>
+  <entry>
     <title>Neo4j基础</title>
     <url>/2020/02/23/Neo4j%E5%9F%BA%E7%A1%80/</url>
     <content><![CDATA[<blockquote>
@@ -296,26 +251,6 @@
       <categories>
         <category>Database</category>
       </categories>
-  </entry>
-  <entry>
-    <title>NPM Error: gyp: No Xcode or CLT version detected</title>
-    <url>/2020/02/22/NPM-Error-gyp-No-Xcode-or-CLT-version-detected/</url>
-    <content><![CDATA[<h5 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h5><p>mac的npm安装谷歌和百度的站点地图时，会出现 gyp: No Xcode or CLT version detected!</p>
-<a id="more"></a>
-
-<p>具体如下：</p>
-<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">wsc@mbp ⮀ ~/Hexo ⮀ npm install hexo-generator-baidu-sitemap --save</span><br><span class="line">npm WARN deprecated core-js@1.2.7: core-js@&lt;3 is no longer maintained and not recommended <span class="keyword">for</span> usage due to the number of issues. Please, upgrade your dependencies to the actual version of core-js@3.</span><br><span class="line"></span><br><span class="line">&gt; fsevents@1.2.11 install /Users/wsc/Hexo/node_modules/hexo-generator-baidu-sitemap/node_modules/fsevents</span><br><span class="line">&gt; node-gyp rebuild</span><br><span class="line"></span><br><span class="line">No receipt <span class="keyword">for</span> <span class="string">&#x27;com.apple.pkg.CLTools_Executables&#x27;</span> found at <span class="string">&#x27;/&#x27;</span>.</span><br><span class="line"></span><br><span class="line">No receipt <span class="keyword">for</span> <span class="string">&#x27;com.apple.pkg.DeveloperToolsCLILeo&#x27;</span> found at <span class="string">&#x27;/&#x27;</span>.</span><br><span class="line"></span><br><span class="line">No receipt <span class="keyword">for</span> <span class="string">&#x27;com.apple.pkg.DeveloperToolsCLI&#x27;</span> found at <span class="string">&#x27;/&#x27;</span>.</span><br><span class="line"></span><br><span class="line">gyp: No Xcode or CLT version detected!</span><br><span class="line">gyp ERR! configure error</span><br><span class="line">gyp ERR! stack Error: `gyp` failed with <span class="built_in">exit</span> code: 1</span><br><span class="line">gyp ERR! stack     at ChildProcess.onCpExit (/usr/<span class="built_in">local</span>/lib/node_modules/npm/node_modules/node-gyp/lib/configure.js:351:16)</span><br><span class="line">gyp ERR! stack     at ChildProcess.emit (events.js:321:20)</span><br><span class="line">gyp ERR! stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:275:12)</span><br><span class="line">gyp ERR! System Darwin 19.3.0</span><br><span class="line">gyp ERR! <span class="built_in">command</span> <span class="string">&quot;/usr/local/Cellar/node/13.6.0/bin/node&quot;</span> <span class="string">&quot;/usr/local/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js&quot;</span> <span class="string">&quot;rebuild&quot;</span></span><br><span class="line">gyp ERR! cwd /Users/wsc/Hexo/node_modules/hexo-generator-baidu-sitemap/node_modules/fsevents</span><br><span class="line">gyp ERR! node -v v13.6.0</span><br><span class="line">gyp ERR! node-gyp -v v5.0.5</span><br><span class="line">gyp ERR! not ok</span><br><span class="line">npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@1.2.11 (node_modules/hexo-generator-baidu-sitemap/node_modules/fsevents):</span><br><span class="line">npm WARN optional SKIPPING OPTIONAL DEPENDENCY: fsevents@1.2.11 install: `node-gyp rebuild`</span><br><span class="line">npm WARN optional SKIPPING OPTIONAL DEPENDENCY: Exit status 1</span><br></pre></td></tr></table></figure>
-<h5 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h5><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo rm -rf $(xcode-select -print-path)</span><br><span class="line">xcode-select --install</span><br></pre></td></tr></table></figure>
-<h5 id="来源"><a href="#来源" class="headerlink" title="来源"></a>来源</h5><blockquote>
-<p><a href="https://www.cnblogs.com/zhennann/p/12272058.html">https://www.cnblogs.com/zhennann/p/12272058.html</a></p>
-</blockquote>
-<blockquote>
-<p><a href="https://github.com/schnerd/d3-scale-cluster/issues/7">https://github.com/schnerd/d3-scale-cluster/issues/7</a></p>
-</blockquote>
-<blockquote>
-<p><a href="https://github.com/nodejs/node-gyp/blob/master/macOS_Catalina.md">https://github.com/nodejs/node-gyp/blob/master/macOS_Catalina.md</a></p>
-</blockquote>
-]]></content>
   </entry>
   <entry>
     <title>Redis一致性Hash算法</title>
@@ -609,6 +544,9 @@
 
 
 <h2 id="有序数组转二叉平衡树"><a href="#有序数组转二叉平衡树" class="headerlink" title="有序数组转二叉平衡树"></a>有序数组转二叉平衡树</h2><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">sortedArrayToBST</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (nums == <span class="keyword">null</span> || nums.length == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> helper(nums, <span class="number">0</span>, nums.length - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">   	Random rand = <span class="keyword">new</span> Random();</span><br><span class="line">    <span class="function"><span class="keyword">public</span> TreeNode <span class="title">helper</span><span class="params">(<span class="keyword">int</span>[] arr, <span class="keyword">int</span> low, <span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (low &gt; high) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      	<span class="comment">// 选择左中节点做根节点</span></span><br><span class="line">        <span class="keyword">int</span> mid = (high + low) &gt;&gt;&gt; <span class="number">1</span>;</span><br><span class="line">      </span><br><span class="line">      	<span class="comment">// 选择右中节点做根节点</span></span><br><span class="line">        <span class="comment">// if ((high + low) % 2 == 1) &#123;</span></span><br><span class="line">        <span class="comment">//     mid++;</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line">      	</span><br><span class="line">      	<span class="comment">// 随机</span></span><br><span class="line">      	<span class="comment">// if ((high + low) % 2 == 1) &#123;</span></span><br><span class="line">        <span class="comment">//     mid += rand.nextInt(2);</span></span><br><span class="line">        <span class="comment">// &#125;</span></span><br><span class="line">        TreeNode root = <span class="keyword">new</span> TreeNode(arr[mid]);</span><br><span class="line">        root.left = helper(arr, low, mid - <span class="number">1</span>);</span><br><span class="line">        root.right = helper(arr, mid + <span class="number">1</span>, high);</span><br><span class="line">        <span class="keyword">return</span> root;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="二叉树中所有距离为-K-的结点"><a href="#二叉树中所有距离为-K-的结点" class="headerlink" title=" 二叉树中所有距离为 K 的结点"></a><a href="https://leetcode-cn.com/problems/all-nodes-distance-k-in-binary-tree/"> 二叉树中所有距离为 K 的结点</a></h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">distanceK</span><span class="params">(root *TreeNode, target *TreeNode, k <span class="keyword">int</span>)</span> <span class="params">(ans []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    parents := <span class="keyword">map</span>[<span class="keyword">int</span>]*TreeNode&#123;&#125;</span><br><span class="line">    <span class="keyword">var</span> findParent <span class="function"><span class="keyword">func</span><span class="params">(*TreeNode)</span></span></span><br><span class="line">    findParent = <span class="function"><span class="keyword">func</span><span class="params">(node *TreeNode)</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> node == <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> node.Left != <span class="literal">nil</span> &#123;</span><br><span class="line">            parents[node.Left.Val] = node</span><br><span class="line">            findParent(node.Left)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> node.Right != <span class="literal">nil</span> &#123;</span><br><span class="line">            parents[node.Right.Val] = node</span><br><span class="line">            findParent(node.Right)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    findParent(root)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> findAns <span class="function"><span class="keyword">func</span><span class="params">(*TreeNode, *TreeNode, <span class="keyword">int</span>)</span></span></span><br><span class="line">    findAns = <span class="function"><span class="keyword">func</span><span class="params">(node *TreeNode, from *TreeNode, depth <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> node == <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> depth == k &#123;</span><br><span class="line">            ans = <span class="built_in">append</span>(ans, node.Val)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> node.Left != from &#123;</span><br><span class="line">            findAns(node.Left, node, depth+<span class="number">1</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> node.Right != from &#123;</span><br><span class="line">            findAns(node.Right, node, depth+<span class="number">1</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> parents[node.Val] != from &#123;</span><br><span class="line">            findAns(parents[node.Val], node, depth+<span class="number">1</span>)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    findAns(target, <span class="literal">nil</span>, <span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Code</category>
@@ -813,7 +751,7 @@ twice = (twice ^ num) &amp; ~once;
 </li>
 <li><p>ssh连接raspberry</p>
 <blockquote>
-<p>$ ssh <a href="mailto:&#x70;&#105;&#x40;&#x31;&#57;&#x32;&#x2e;&#49;&#x36;&#x38;&#46;&#51;&#49;&#x2e;&#49;&#48;&#56;">&#x70;&#105;&#x40;&#x31;&#57;&#x32;&#x2e;&#49;&#x36;&#x38;&#46;&#51;&#49;&#x2e;&#49;&#48;&#56;</a></p>
+<p>$ ssh <a href="mailto:&#112;&#x69;&#x40;&#x31;&#x39;&#x32;&#46;&#49;&#x36;&#56;&#46;&#51;&#49;&#46;&#49;&#48;&#56;">&#112;&#x69;&#x40;&#x31;&#x39;&#x32;&#46;&#49;&#x36;&#56;&#46;&#51;&#49;&#46;&#49;&#48;&#56;</a></p>
 </blockquote>
 <p> 在这里收到了connection refused。解决办法是在sd卡的根目录下加上一个ssh空白文件（无后缀）。</p>
 </li>
@@ -1329,6 +1267,10 @@ twice = (twice ^ num) &amp; ~once;
 <figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">int</span>[] shuffle(<span class="keyword">int</span>[] nums, <span class="keyword">int</span> n) &#123;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = n; i &lt; <span class="number">2</span> * n; i++) &#123;</span><br><span class="line">            nums[i] &lt;&lt;= <span class="number">16</span>;</span><br><span class="line">            nums[i] |= nums[i - n];</span><br><span class="line">        &#125;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">2</span> * n; i += <span class="number">2</span>) &#123;</span><br><span class="line">            nums[i] = nums[n + i / <span class="number">2</span>] &amp; <span class="number">0xFFFF</span>;</span><br><span class="line">            nums[i + <span class="number">1</span>] = nums[n + i / <span class="number">2</span>] &gt;&gt; <span class="number">16</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> nums;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
+<h2 id="最长公共子序列"><a href="#最长公共子序列" class="headerlink" title="最长公共子序列"></a><a href="https://leetcode-cn.com/problems/longest-common-subsequence/">最长公共子序列</a></h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">longestCommonSubsequence</span><span class="params">(text1 <span class="keyword">string</span>, text2 <span class="keyword">string</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    m, n := <span class="built_in">len</span>(text1), <span class="built_in">len</span>(text2)</span><br><span class="line">    dp := <span class="built_in">make</span>([][]<span class="keyword">int</span>, m+<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">for</span> i := <span class="keyword">range</span> dp &#123;</span><br><span class="line">        dp[i] = <span class="built_in">make</span>([]<span class="keyword">int</span>, n+<span class="number">1</span>)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> i, c1 := <span class="keyword">range</span> text1 &#123;</span><br><span class="line">        <span class="keyword">for</span> j, c2 := <span class="keyword">range</span> text2 &#123;</span><br><span class="line">            <span class="keyword">if</span> c1 == c2 &#123;</span><br><span class="line">                dp[i+<span class="number">1</span>][j+<span class="number">1</span>] = dp[i][j]+<span class="number">1</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                dp[i+<span class="number">1</span>][j+<span class="number">1</span>] = max(dp[i][j+<span class="number">1</span>], dp[i+<span class="number">1</span>][j])</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[m][n]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">max</span><span class="params">(a, b <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> a &gt; b &#123;</span><br><span class="line">        <span class="keyword">return</span> a</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> b</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h2 id="最长递增子序列"><a href="#最长递增子序列" class="headerlink" title="最长递增子序列"></a><a href="https://leetcode-cn.com/problems/longest-increasing-subsequence/">最长递增子序列</a></h2><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">lengthOfLIS</span><span class="params">(nums []<span class="keyword">int</span>)</span> <span class="params">(ans <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    n := <span class="built_in">len</span>(nums)</span><br><span class="line">    dp := <span class="built_in">make</span>([]<span class="keyword">int</span>, n+<span class="number">1</span>)</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">1</span>; i &lt;= n; i++ &#123;</span><br><span class="line">        dp[i] = <span class="number">1</span></span><br><span class="line">        <span class="keyword">for</span> j := <span class="number">1</span>; j &lt; i; j++ &#123;</span><br><span class="line">            <span class="keyword">if</span> nums[j<span class="number">-1</span>] &lt; nums[i<span class="number">-1</span>] &#123;</span><br><span class="line">                dp[i] = max(dp[i], dp[j]+<span class="number">1</span>)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ans = max(ans, dp[i])</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">lengthOfLIS</span><span class="params">(nums []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    n, ans := <span class="built_in">len</span>(nums), <span class="number">1</span></span><br><span class="line">    dp := <span class="built_in">make</span>([]<span class="keyword">int</span>, n+<span class="number">1</span>)</span><br><span class="line">    dp[<span class="number">1</span>] = nums[<span class="number">0</span>]</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">1</span>; i &lt; n; i++ &#123;</span><br><span class="line">        <span class="keyword">if</span> nums[i] &gt; dp[ans] &#123;</span><br><span class="line">            ans++</span><br><span class="line">            dp[ans] = nums[i]</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            l, r, pos := <span class="number">1</span>, ans, <span class="number">0</span></span><br><span class="line">            <span class="keyword">for</span> l &lt;= r &#123;</span><br><span class="line">                mid := (l + r) &gt;&gt; <span class="number">1</span></span><br><span class="line">                <span class="keyword">if</span> dp[mid] &lt; nums[i] &#123;</span><br><span class="line">                    pos = mid</span><br><span class="line">                    l = mid + <span class="number">1</span></span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    r = mid - <span class="number">1</span></span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            dp[pos+<span class="number">1</span>] = nums[i]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Code</category>
