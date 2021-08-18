@@ -719,6 +719,15 @@ twice = (twice ^ num) &amp; ~once;
       </categories>
   </entry>
   <entry>
+    <title>Go反射reflect</title>
+    <url>/2021/07/12/%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<p><a href="https://www.cnblogs.com/itbsl/p/10551880.html">https://www.cnblogs.com/itbsl/p/10551880.html</a></p>
+]]></content>
+      <categories>
+        <category>Go</category>
+      </categories>
+  </entry>
+  <entry>
     <title>内存溢出和内存泄漏</title>
     <url>/2020/02/29/%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA%E5%92%8C%E5%86%85%E5%AD%98%E6%B3%84%E6%BC%8F/</url>
     <content><![CDATA[<h4 id="内存溢出和内存泄漏的区别"><a href="#内存溢出和内存泄漏的区别" class="headerlink" title="内存溢出和内存泄漏的区别"></a>内存溢出和内存泄漏的区别</h4><p>内存溢出（Out Of Memory）是指当系统剩余内存空间无法满足申请的内存空间所出现的问题。</p>
@@ -751,7 +760,7 @@ twice = (twice ^ num) &amp; ~once;
 </li>
 <li><p>ssh连接raspberry</p>
 <blockquote>
-<p>$ ssh <a href="mailto:&#112;&#x69;&#x40;&#x31;&#x39;&#x32;&#46;&#49;&#x36;&#56;&#46;&#51;&#49;&#46;&#49;&#48;&#56;">&#112;&#x69;&#x40;&#x31;&#x39;&#x32;&#46;&#49;&#x36;&#56;&#46;&#51;&#49;&#46;&#49;&#48;&#56;</a></p>
+<p>$ ssh <a href="mailto:&#x70;&#105;&#64;&#49;&#x39;&#x32;&#x2e;&#x31;&#x36;&#56;&#x2e;&#x33;&#49;&#46;&#x31;&#48;&#56;">&#x70;&#105;&#64;&#49;&#x39;&#x32;&#x2e;&#x31;&#x36;&#56;&#x2e;&#x33;&#49;&#46;&#x31;&#48;&#56;</a></p>
 </blockquote>
 <p> 在这里收到了connection refused。解决办法是在sd卡的根目录下加上一个ssh空白文件（无后缀）。</p>
 </li>
