@@ -719,9 +719,131 @@ twice = (twice ^ num) &amp; ~once;
       </categories>
   </entry>
   <entry>
-    <title>Go反射reflect</title>
-    <url>/2021/07/12/%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<p><a href="https://www.cnblogs.com/itbsl/p/10551880.html">https://www.cnblogs.com/itbsl/p/10551880.html</a></p>
+    <title>共识算法</title>
+    <url>/2021/07/21/%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<h2 id="CAP-定理"><a href="#CAP-定理" class="headerlink" title="CAP 定理"></a>CAP 定理</h2><p>CAP定理(CAP theorem)，又被称作布鲁尔定理(Brewer’s theorem)，是分布式系统中的一个基本定理。它指出任何分布式系统(Distributed System)中，最多具有一致性、可用性、分区容错性这三个特性中的两个。也就是说，三个特性无法兼顾，必须有所取舍。</p>
+<a id="more"></a>
+
+<h3 id="分区容错性-Partition-Tolerance"><a href="#分区容错性-Partition-Tolerance" class="headerlink" title="分区容错性(Partition Tolerance)"></a>分区容错性(Partition Tolerance)</h3><p>大多数分布式系统都分布在多个子网络。每个子网络就叫做一个区（partition）。分区容错的意思是，区间通信可能失败。比如，一台服务器放在中国，另一台服务器放在美国，这就是两个区，它们之间可能无法通信。</p>
+<p><img src="https://tcs.teambition.net/storage/311zae46786b04497363417d6b7d8a9e6fa4?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXphZTQ2Nzg2YjA0NDk3MzYzNDE3ZDZiN2Q4YTllNmZhNCJ9.60yb0m1zFuFmOGkMSe5UK879u8WCCMCp-5ODnNr_wus" alt="img"></p>
+<p>上图中，G1 和 G2 是两台跨区的服务器。G1 向 G2 发送一条消息，G2 可能无法收到。系统设计的时候，必须考虑到这种情况。一般来说，分区容错无法避免，因此可以认为 CAP 的 P 总是成立。CAP 定理告诉我们，剩下的 C 和 A 无法同时做到。</p>
+<h3 id="一致性-Consistence"><a href="#一致性-Consistence" class="headerlink" title="一致性(Consistence)"></a>一致性(Consistence)</h3><p>一致性是指，各节点的数据保证一致（每次成功写入之后，无论从哪个节点读取，都能读取到最新数据），相当于向所有节点的写操作是原子操作（要么全部失败要么全部成功）。一致性有三种策略（CAP指的是强一致性）：</p>
+<ul>
+<li>强一致性：写操作完成后，后续的读操作都能看到最新数据；</li>
+<li>弱一致性：能容忍部分节点看不到最新数据；</li>
+<li>最终一致性：经过一段时间后，都能看到最新数据。</li>
+</ul>
+<h3 id="可用性-Availability"><a href="#可用性-Availability" class="headerlink" title="可用性(Availability)"></a>可用性(Availability)</h3><p>可用性是指，每次向未崩溃的节点发送请求，总能保证收到响应数据（允许不是最新数据）。参照前面“一致性”中的两种情形，可见一致性和可用性无法兼顾：</p>
+<ul>
+<li>若要保证一致性：则必须进行节点间数据同步，同步期间数据锁定，导致期间的读取失败或超时，破坏了可用性；</li>
+<li>若要保证可用性：则不允许节点间同步期间锁定，这又破坏了一致性。</li>
+</ul>
+<h3 id="CAP应用"><a href="#CAP应用" class="headerlink" title="CAP应用"></a>CAP应用</h3><ul>
+<li>舍弃P(选择C/A)：单点的传统关系型数据库 DBMS(MySQL/Oracle)，但如果采用集群就必须考虑P了；</li>
+<li>舍弃A(选择C/P)：分布式系统要保证P，而且保证一致性，如 ZooKeeper / Redis / MongoDB / HBase；</li>
+<li>舍弃C(选择A/P)：分布式系统要保证P，而且保证可用性，如 CoachDB / Cassandra / DynamoDB。</li>
+</ul>
+<p>对于一个分布式系统来说，CAP三者中，P是基本要求，只能通过基础设施提升，无法通过降低 C/A 来提升；然后在 C/A 两者之间权衡。</p>
+<p>常用策略是：保证可用性和分区容错，舍弃强一致性，但保证最终一致性，比如一些高并发的站点（秒杀、淘宝、12306）。最终近似于兼顾了三个特性。</p>
+<h2 id="Basic-Paxos"><a href="#Basic-Paxos" class="headerlink" title="Basic Paxos"></a>Basic Paxos</h2><p>Paxos算法是基于<strong>消息传递且具有高度容错特性</strong>的一致性算法，是目前公认的解决分布式一致性问题最有效的算法之一，其解决的问题就是在一个分布式系统中的如何就某个值（决议）达成一致。它利用大多数（Majority）机制保证了2F+1的容错能力，即2F+1个节点的系统中最多允许F个节点同时出现故障。（数学原理：<strong>两个法定（过半）集合必然存在非空交集，即至少有一个公共进程，称为法定集合性质</strong>。）</p>
+<p><strong>角色：</strong></p>
+<ul>
+<li>Proposer 提议者：提议一个值(x = 5)，用于被投票决议。</li>
+<li>Acceptor 接受者：对每个提议进行投票（只接受其中一个提案）。</li>
+<li>Learner 学习者：被告知投票决议的结果，对其学习，不参与投票过程。</li>
+</ul>
+<p>每个节点在协议中可以担任多个角色。</p>
+<p><strong>流程：</strong></p>
+<p>阶段一（prepare阶段）：发编号</p>
+<p>(a) Proposer选择一个提案编号N（提案编号全局递增且唯一，可使用时间戳+server id），然后向半数以上的Acceptor发送编号为N的Prepare请求。Prepare(N)</p>
+<p>(b) 如果一个Acceptor收到一个编号为N的Prepare请求，如果小于它已经响应过的请求，则拒绝，不回应或回复error。若N大于该Acceptor已经响应过的所有Prepare请求的编号（maxN），那么它就会将它已经接受过（已经经过收到第二阶段提案）的编号最大的提案（如果有的话，如果还没有收到提案的话返回{pok，null，null}）作为响应反馈给Proposer，同时该Acceptor承诺不再接受任何编号小于N的提案。</p>
+<p>阶段二（accept阶段）：发提案</p>
+<p>(a) 如果一个Proposer收到半数以上Acceptor对其发出的编号为N的Prepare请求的响应，那么它就会发送一个针对[N,V]提案的Accept请求给半数以上的Acceptor。注意：V就是收到的响应中编号最大的提案的value（某个acceptor响应的它已经通过的{acceptN，acceptV}），如果响应中不包含任何提案，那么V就由Proposer自己决定。</p>
+<p>(b) 如果Acceptor收到一个针对编号为N的提案的Accept请求，只要该Acceptor没有对编号大于N的Prepare请求做出过响应，它就接受该提案。如果N小于Acceptor以及响应的prepare请求，则拒绝，不回应或回复error（当proposer没有收到过半的回应，那么他会重新进入第一阶段，递增提案号，重新提出prepare请求）。</p>
+<p><img src="https://tcs.teambition.net/storage/311z2c484ec59b918582844078b54df98e09?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXoyYzQ4NGVjNTliOTE4NTgyODQ0MDc4YjU0ZGY5OGUwOSJ9.4o-627bzCDlP585DstjbCYNYswhaKrkOyHWHSHbpzFs" alt="img"></p>
+<p>正常流程：</p>
+<p><img src="https://tcs.teambition.net/storage/311z3f4e4c12af7038d2c74ee9af82aa3af2?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXozZjRlNGMxMmFmNzAzOGQyYzc0ZWU5YWY4MmFhM2FmMiJ9.J9t2BIs6o40DCzOrByE-jbvsndgStgJYuYNloF0nkzo" alt="img"></p>
+<p>特殊情况：</p>
+<ol>
+<li>Proposer提议正常，部分acceptor失败</li>
+</ol>
+<ul>
+<li>proposer发现已经超过半数成功，那么还是认为提议成功，并把消息传递给learner，由learner角色将确定的提议通知给所有accpetor，最终使最后未响应的accpetor也同步更新，通过learner角色使所有Acceptor达到最终一致性。、</li>
+<li>proposer发现未达到超过半数同意条件，proposer要么直接提示失败，要么递增版本号重新发起提议，如果重新发起提议对于第一次写入成功的accpetor不会修改，另外两个accpetor会重新接受提议，达到最终成功。</li>
+</ul>
+<p><img src="https://tcs.teambition.net/storage/311z15487d387feb03d79c08c6c8e1bfb4fd?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXoxNTQ4N2QzODdmZWIwM2Q3OWMwOGM2YzhlMWJmYjRmZCJ9.Nk2DitLhsUgVTs-Mp66HmKzeBVN-omVHql_7LeD_98Q" alt="img"></p>
+<p><strong>Learner学习：</strong></p>
+<p><img src="https://tcs.teambition.net/storage/311z1728751f34019b98f297bf7eaf650fce?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXoxNzI4NzUxZjM0MDE5Yjk4ZjI5N2JmN2VhZjY1MGZjZSJ9.agGMooNHnlG8mmePb0iaQ9H6YNhd4bLqBCBRJ6vG_Ac" alt="img"></p>
+<p><strong>特点：</strong></p>
+<ul>
+<li>一个或多个节点可以提出提议</li>
+<li>系统针对所有提案中的某个提案必须达成一致</li>
+<li>最多只能对一个确定的提案达成一致</li>
+<li>只要超过半数的节点存活且可互相通信，整个系统一定能达成一致状态</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<p>多leader形成活锁</p>
+<p><img src="https://tcs.teambition.net/storage/311z967514781a0a812665e57cb8beb2e1e8?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXo5Njc1MTQ3ODFhMGE4MTI2NjVlNTdjYjhiZWIyZTFlOCJ9.B77RC53Fs781QJLngg0rCBW97tuL1CwSeNfH2ij900c" alt="img"></p>
+<h2 id="Multi-Paxos"><a href="#Multi-Paxos" class="headerlink" title="Multi Paxos"></a>Multi Paxos</h2><p>原始的Paxos算法（Basic Paxos）只能对一个值形成决议，决议的形成至少需要两次网络来回，在高并发情况下可能需要更多的网络来回，极端情况下甚至可能形成活锁。如果想连续确定多个值，Basic Paxos搞不定了。因此Basic Paxos几乎只是用来做理论研究，并不直接应用在实际工程中。</p>
+<p>Multi-Paxos基于Basic Paxos做了两点改进：</p>
+<ol>
+<li>在所有Proposers中选举一个Leader，由Leader唯一地提交Proposal给Acceptors进行表决。这样没有Proposer竞争，解决了活锁问题。在系统中仅有一个Leader进行Value提交的情况下，Prepare阶段就可以跳过，从而将两阶段变为一阶段，提高效率。</li>
+<li>针对每一个要确定的值，运行一次Paxos算法实例（Instance），形成决议。每一个Paxos实例使用唯一的Instance ID标识。</li>
+</ol>
+<p><img src="https://tcs.teambition.net/storage/311zbfddc75e837f783507056b6e674f0bac?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXpiZmRkYzc1ZTgzN2Y3ODM1MDcwNTZiNmU2NzRmMGJhYyJ9.cUBgDu97EsuAHY5TebSd0qtdDAvHufzi6SreujQH_3A" alt="img"></p>
+<p><strong>Leader选举</strong></p>
+<p>一个最简单的选举方法，就是Server ID最大的当Leader。</p>
+<p>每个Server间隔T时间向其他Server发送心跳包，如果一个Server在2T时间内没有收到来自更高ID的心跳，那么它就成为Leader。其他Proposer，必须拒绝客户端的请求，或将请求转发给Leader。</p>
+<p><strong>省略Prepare阶段</strong></p>
+<p>Prepare的作用是阻止旧的提案，以及检查是否有已接受的提案值。</p>
+<p>当只有一个Leader发送提案的时候，Prepare是不会产生冲突的，可以省略Prepare阶段，这样就可以减少一半RPC请求。</p>
+<p>在Leader发送第一个Prepare之后，只需要发送Accept请求。直到Accept被拒绝，就重新需要Prepare阶段。</p>
+<p>Chubby和Boxwood均使用Multi-Paxos。ZooKeeper使用的Zab也是Multi-Paxos的变形。</p>
+<h2 id="PBFT"><a href="#PBFT" class="headerlink" title="PBFT"></a>PBFT</h2><p><strong>前提：</strong>采用密码学算法保证节点之间的消息传送是不可篡改的。</p>
+<p><strong>基础概念：</strong></p>
+<p>1.Quorum (法定人数)：至少需要的同意票数量</p>
+<p>2.Liveness (活性)：算法能够顺利执行</p>
+<p>3.Safety (安全性)：所有节点的内容能保证一致</p>
+<p>(N &gt;= 3f + 1  )</p>
+<p>设总结点数 = N       恶意结点数 = f      法定人数 = Q</p>
+<p>（1）满足Liveness： Q &lt;= N – f  </p>
+<p>（2）满足Safety：     2Q – N &gt; f</p>
+<p>由（1）（2）可得：N + f &lt; 2Q &lt;= 2 (N - f)</p>
+<p>​                          N &gt;= 3f + 1 &amp;&amp;  Q &gt;= 2f + 1  </p>
+<p><img src="https://tcs.teambition.net/storage/311z7a223d898e85f035bab301630b23ce09?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXo3YTIyM2Q4OThlODVmMDM1YmFiMzAxNjMwYjIzY2UwOSJ9.G3ijH6i74atk2ivdK7gs_qWjpxGsjz9LlacWbQlnLiU" alt="img"></p>
+<p>Pre-Prepare: 通知所有 Replicas原始消息，给定序号</p>
+<p>Prepare：Replicas之间互相交流，收到 2f 个认可即发送 Commit</p>
+<p>Commit: 收到 2f 认可即执行</p>
+<p>Reply：反馈执行结果， client只需要收到 f+1 个认可</p>
+<ul>
+<li><strong>leader的作用</strong></li>
+</ul>
+<p>广播Request后，和其他节点是同等地位。</p>
+<ul>
+<li><strong>视图转换</strong></li>
+</ul>
+<p>视图转换保证共识协议的活性（liveness）<strong>。</strong>当主节点出故障时能保证共识能继续进行。每个备份节点收到一个请求是都会开始一个定时器。如果在一个视图内，时钟超时，该备份节点会发起一个视图转换的消息。主节点切换采用 round-robin 方式： p = v mod |R| 。</p>
+<ul>
+<li><strong>checkpoint</strong></li>
+</ul>
+<p>执行K条请求（例如：100条）后执行一次状态同步。</p>
+<p>设置高低水位 [h, H] , 低水位 h=上一个stable checkpoint，高水位 H=h+L，L为指定的数值。</p>
+<h3 id="HotStuff"><a href="#HotStuff" class="headerlink" title="HotStuff"></a>HotStuff</h3><p><img src="https://tcs.teambition.net/storage/111t3c2f22205185da1916b5fcece476c2c2?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzExMXQzYzJmMjIyMDUxODVkYTE5MTZiNWZjZWNlNDc2YzJjMiJ9.uH-hQ3BUrB1Hx3GcG3fkEkCqwJuQ4joNd0i-DC3kabY" alt="img"></p>
+<ol>
+<li>网状网络 =&gt; 星形网络（门限签名）</li>
+<li>将视图切换纳入正常流程，简化了视图转换的复杂度</li>
+<li>链式确认，出块更快。我们认可一个区块，实际上也是对于该区块父区块的认可。在链式的HotStuff中，可以将区块的确认放在下一个区块中，只要一个区块后面产生了三个连续区块，那么就说明该区块经过了三轮投票确认。</li>
+</ol>
+<p><img src="https://tcs.teambition.net/storage/111u577e1ea67f0640f22673044ba297cad0?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzExMXU1NzdlMWVhNjdmMDY0MGYyMjY3MzA0NGJhMjk3Y2FkMCJ9.kUXfTMi8KcQaNsx4go0AE0c_UaN_C27cl8WgnTlv4dY" alt="img"></p>
+<h3 id="LibraBFT"><a href="#LibraBFT" class="headerlink" title="LibraBFT"></a>LibraBFT</h3><p>对HotStuff的扩展和修改</p>
+<ol>
+<li>通过让验证器对块的结果状态(而不仅仅是交易序列)进行集体签名，使协议更能抵抗非确定性错误。</li>
+<li>设计了一个不可预测的领导者选举机制，其中一轮的领导者由最新提交的块的提议者使用可验证的随机函数VRF 确定。 这种机制限制了攻击者可以针对领导者发起有效拒绝服务攻击的时间窗口。 </li>
+</ol>
+<h2 id="论文"><a href="#论文" class="headerlink" title="论文:"></a>论文:</h2><p>Paxos: <a href="https://lamport.azurewebsites.net/pubs/paxos-simple.pdf">https://lamport.azurewebsites.net/pubs/paxos-simple.pdf</a></p>
+<p>PBFT: <a href="http://www.pmg.lcs.mit.edu/papers/osdi99.pdf">http://www.pmg.lcs.mit.edu/papers/osdi99.pdf</a></p>
+<p>HotStuff: <a href="https://arxiv.org/pdf/1803.05069.pdf">https://arxiv.org/pdf/1803.05069.pdf</a></p>
+<p>LibraBFT: <a href="https://developers.libra.org/docs/assets/papers/libra-consensus-state-machine-replication-in-the-libra-blockchain/2020-05-26.pdf">https://developers.libra.org/docs/assets/papers/libra-consensus-state-machine-replication-in-the-libra-blockchain/2020-05-26.pdf</a></p>
 ]]></content>
       <categories>
         <category>Go</category>
@@ -760,7 +882,7 @@ twice = (twice ^ num) &amp; ~once;
 </li>
 <li><p>ssh连接raspberry</p>
 <blockquote>
-<p>$ ssh <a href="mailto:&#x70;&#105;&#64;&#49;&#x39;&#x32;&#x2e;&#x31;&#x36;&#56;&#x2e;&#x33;&#49;&#46;&#x31;&#48;&#56;">&#x70;&#105;&#64;&#49;&#x39;&#x32;&#x2e;&#x31;&#x36;&#56;&#x2e;&#x33;&#49;&#46;&#x31;&#48;&#56;</a></p>
+<p>$ ssh <a href="mailto:&#112;&#105;&#64;&#x31;&#x39;&#50;&#x2e;&#x31;&#54;&#56;&#46;&#x33;&#x31;&#x2e;&#x31;&#48;&#x38;">&#112;&#105;&#64;&#x31;&#x39;&#50;&#x2e;&#x31;&#54;&#56;&#46;&#x33;&#x31;&#x2e;&#x31;&#48;&#x38;</a></p>
 </blockquote>
 <p> 在这里收到了connection refused。解决办法是在sd卡的根目录下加上一个ssh空白文件（无后缀）。</p>
 </li>

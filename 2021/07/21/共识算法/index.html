@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="41huvDJ29CMarUJluxci2yxHjjifbVBCRE49vnEzYwk">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="/lib/pace/pace-theme-loading-bar.min.css">
+  <script src="/lib/pace/pace.min.js"></script>
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"codingpages.sicheng.wang","root":"/","scheme":"Gemini","version":"7.7.2","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":true},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="CAP 定理CAP定理(CAP theorem)，又被称作布鲁尔定理(Brewer’s theorem)，是分布式系统中的一个基本定理。它指出任何分布式系统(Distributed System)中，最多具有一致性、可用性、分区容错性这三个特性中的两个。也就是说，三个特性无法兼顾，必须有所取舍。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="共识算法">
+<meta property="og:url" content="http://codingpages.sicheng.wang/2021/07/21/%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95/index.html">
+<meta property="og:site_name" content="静">
+<meta property="og:description" content="CAP 定理CAP定理(CAP theorem)，又被称作布鲁尔定理(Brewer’s theorem)，是分布式系统中的一个基本定理。它指出任何分布式系统(Distributed System)中，最多具有一致性、可用性、分区容错性这三个特性中的两个。也就是说，三个特性无法兼顾，必须有所取舍。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://tcs.teambition.net/storage/311zae46786b04497363417d6b7d8a9e6fa4?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXphZTQ2Nzg2YjA0NDk3MzYzNDE3ZDZiN2Q4YTllNmZhNCJ9.60yb0m1zFuFmOGkMSe5UK879u8WCCMCp-5ODnNr_wus">
+<meta property="og:image" content="https://tcs.teambition.net/storage/311z2c484ec59b918582844078b54df98e09?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXoyYzQ4NGVjNTliOTE4NTgyODQ0MDc4YjU0ZGY5OGUwOSJ9.4o-627bzCDlP585DstjbCYNYswhaKrkOyHWHSHbpzFs">
+<meta property="og:image" content="https://tcs.teambition.net/storage/311z3f4e4c12af7038d2c74ee9af82aa3af2?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXozZjRlNGMxMmFmNzAzOGQyYzc0ZWU5YWY4MmFhM2FmMiJ9.J9t2BIs6o40DCzOrByE-jbvsndgStgJYuYNloF0nkzo">
+<meta property="og:image" content="https://tcs.teambition.net/storage/311z15487d387feb03d79c08c6c8e1bfb4fd?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXoxNTQ4N2QzODdmZWIwM2Q3OWMwOGM2YzhlMWJmYjRmZCJ9.Nk2DitLhsUgVTs-Mp66HmKzeBVN-omVHql_7LeD_98Q">
+<meta property="og:image" content="https://tcs.teambition.net/storage/311z1728751f34019b98f297bf7eaf650fce?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXoxNzI4NzUxZjM0MDE5Yjk4ZjI5N2JmN2VhZjY1MGZjZSJ9.agGMooNHnlG8mmePb0iaQ9H6YNhd4bLqBCBRJ6vG_Ac">
+<meta property="og:image" content="https://tcs.teambition.net/storage/311z967514781a0a812665e57cb8beb2e1e8?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXo5Njc1MTQ3ODFhMGE4MTI2NjVlNTdjYjhiZWIyZTFlOCJ9.B77RC53Fs781QJLngg0rCBW97tuL1CwSeNfH2ij900c">
+<meta property="og:image" content="https://tcs.teambition.net/storage/311zbfddc75e837f783507056b6e674f0bac?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXpiZmRkYzc1ZTgzN2Y3ODM1MDcwNTZiNmU2NzRmMGJhYyJ9.cUBgDu97EsuAHY5TebSd0qtdDAvHufzi6SreujQH_3A">
+<meta property="og:image" content="https://tcs.teambition.net/storage/311z7a223d898e85f035bab301630b23ce09?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXo3YTIyM2Q4OThlODVmMDM1YmFiMzAxNjMwYjIzY2UwOSJ9.G3ijH6i74atk2ivdK7gs_qWjpxGsjz9LlacWbQlnLiU">
+<meta property="og:image" content="https://tcs.teambition.net/storage/111t3c2f22205185da1916b5fcece476c2c2?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzExMXQzYzJmMjIyMDUxODVkYTE5MTZiNWZjZWNlNDc2YzJjMiJ9.uH-hQ3BUrB1Hx3GcG3fkEkCqwJuQ4joNd0i-DC3kabY">
+<meta property="og:image" content="https://tcs.teambition.net/storage/111u577e1ea67f0640f22673044ba297cad0?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzExMXU1NzdlMWVhNjdmMDY0MGYyMjY3MzA0NGJhMjk3Y2FkMCJ9.kUXfTMi8KcQaNsx4go0AE0c_UaN_C27cl8WgnTlv4dY">
+<meta property="article:published_time" content="2021-07-21T02:26:28.000Z">
+<meta property="article:modified_time" content="2021-08-18T10:35:22.833Z">
+<meta property="article:author" content="wsc">
+<meta property="article:tag" content="debug">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://tcs.teambition.net/storage/311zae46786b04497363417d6b7d8a9e6fa4?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXphZTQ2Nzg2YjA0NDk3MzYzNDE3ZDZiN2Q4YTllNmZhNCJ9.60yb0m1zFuFmOGkMSe5UK879u8WCCMCp-5ODnNr_wus">
+
+<link rel="canonical" href="http://codingpages.sicheng.wang/2021/07/21/%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true
+  };
+</script>
+
+  <title>共识算法 | 静</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-159362587-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-159362587-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">静</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>归档</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="search-pop-overlay">
+  <div class="popup search-popup">
+      <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+  </div>
+</div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://codingpages.sicheng.wang/2021/07/21/%E5%85%B1%E8%AF%86%E7%AE%97%E6%B3%95/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/taiyi.jpg">
+      <meta itemprop="name" content="wsc">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="静">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          共识算法
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-07-21 10:26:28" itemprop="dateCreated datePublished" datetime="2021-07-21T10:26:28+08:00">2021-07-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-08-18 18:35:22" itemprop="dateModified" datetime="2021-08-18T18:35:22+08:00">2021-08-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go/" itemprop="url" rel="index"><span itemprop="name">Go</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="CAP-定理"><a href="#CAP-定理" class="headerlink" title="CAP 定理"></a>CAP 定理</h2><p>CAP定理(CAP theorem)，又被称作布鲁尔定理(Brewer’s theorem)，是分布式系统中的一个基本定理。它指出任何分布式系统(Distributed System)中，最多具有一致性、可用性、分区容错性这三个特性中的两个。也就是说，三个特性无法兼顾，必须有所取舍。</p>
+<a id="more"></a>
+
+<h3 id="分区容错性-Partition-Tolerance"><a href="#分区容错性-Partition-Tolerance" class="headerlink" title="分区容错性(Partition Tolerance)"></a>分区容错性(Partition Tolerance)</h3><p>大多数分布式系统都分布在多个子网络。每个子网络就叫做一个区（partition）。分区容错的意思是，区间通信可能失败。比如，一台服务器放在中国，另一台服务器放在美国，这就是两个区，它们之间可能无法通信。</p>
+<p><img src="https://tcs.teambition.net/storage/311zae46786b04497363417d6b7d8a9e6fa4?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXphZTQ2Nzg2YjA0NDk3MzYzNDE3ZDZiN2Q4YTllNmZhNCJ9.60yb0m1zFuFmOGkMSe5UK879u8WCCMCp-5ODnNr_wus" alt="img"></p>
+<p>上图中，G1 和 G2 是两台跨区的服务器。G1 向 G2 发送一条消息，G2 可能无法收到。系统设计的时候，必须考虑到这种情况。一般来说，分区容错无法避免，因此可以认为 CAP 的 P 总是成立。CAP 定理告诉我们，剩下的 C 和 A 无法同时做到。</p>
+<h3 id="一致性-Consistence"><a href="#一致性-Consistence" class="headerlink" title="一致性(Consistence)"></a>一致性(Consistence)</h3><p>一致性是指，各节点的数据保证一致（每次成功写入之后，无论从哪个节点读取，都能读取到最新数据），相当于向所有节点的写操作是原子操作（要么全部失败要么全部成功）。一致性有三种策略（CAP指的是强一致性）：</p>
+<ul>
+<li>强一致性：写操作完成后，后续的读操作都能看到最新数据；</li>
+<li>弱一致性：能容忍部分节点看不到最新数据；</li>
+<li>最终一致性：经过一段时间后，都能看到最新数据。</li>
+</ul>
+<h3 id="可用性-Availability"><a href="#可用性-Availability" class="headerlink" title="可用性(Availability)"></a>可用性(Availability)</h3><p>可用性是指，每次向未崩溃的节点发送请求，总能保证收到响应数据（允许不是最新数据）。参照前面“一致性”中的两种情形，可见一致性和可用性无法兼顾：</p>
+<ul>
+<li>若要保证一致性：则必须进行节点间数据同步，同步期间数据锁定，导致期间的读取失败或超时，破坏了可用性；</li>
+<li>若要保证可用性：则不允许节点间同步期间锁定，这又破坏了一致性。</li>
+</ul>
+<h3 id="CAP应用"><a href="#CAP应用" class="headerlink" title="CAP应用"></a>CAP应用</h3><ul>
+<li>舍弃P(选择C/A)：单点的传统关系型数据库 DBMS(MySQL/Oracle)，但如果采用集群就必须考虑P了；</li>
+<li>舍弃A(选择C/P)：分布式系统要保证P，而且保证一致性，如 ZooKeeper / Redis / MongoDB / HBase；</li>
+<li>舍弃C(选择A/P)：分布式系统要保证P，而且保证可用性，如 CoachDB / Cassandra / DynamoDB。</li>
+</ul>
+<p>对于一个分布式系统来说，CAP三者中，P是基本要求，只能通过基础设施提升，无法通过降低 C/A 来提升；然后在 C/A 两者之间权衡。</p>
+<p>常用策略是：保证可用性和分区容错，舍弃强一致性，但保证最终一致性，比如一些高并发的站点（秒杀、淘宝、12306）。最终近似于兼顾了三个特性。</p>
+<h2 id="Basic-Paxos"><a href="#Basic-Paxos" class="headerlink" title="Basic Paxos"></a>Basic Paxos</h2><p>Paxos算法是基于<strong>消息传递且具有高度容错特性</strong>的一致性算法，是目前公认的解决分布式一致性问题最有效的算法之一，其解决的问题就是在一个分布式系统中的如何就某个值（决议）达成一致。它利用大多数（Majority）机制保证了2F+1的容错能力，即2F+1个节点的系统中最多允许F个节点同时出现故障。（数学原理：<strong>两个法定（过半）集合必然存在非空交集，即至少有一个公共进程，称为法定集合性质</strong>。）</p>
+<p><strong>角色：</strong></p>
+<ul>
+<li>Proposer 提议者：提议一个值(x = 5)，用于被投票决议。</li>
+<li>Acceptor 接受者：对每个提议进行投票（只接受其中一个提案）。</li>
+<li>Learner 学习者：被告知投票决议的结果，对其学习，不参与投票过程。</li>
+</ul>
+<p>每个节点在协议中可以担任多个角色。</p>
+<p><strong>流程：</strong></p>
+<p>阶段一（prepare阶段）：发编号</p>
+<p>(a) Proposer选择一个提案编号N（提案编号全局递增且唯一，可使用时间戳+server id），然后向半数以上的Acceptor发送编号为N的Prepare请求。Prepare(N)</p>
+<p>(b) 如果一个Acceptor收到一个编号为N的Prepare请求，如果小于它已经响应过的请求，则拒绝，不回应或回复error。若N大于该Acceptor已经响应过的所有Prepare请求的编号（maxN），那么它就会将它已经接受过（已经经过收到第二阶段提案）的编号最大的提案（如果有的话，如果还没有收到提案的话返回{pok，null，null}）作为响应反馈给Proposer，同时该Acceptor承诺不再接受任何编号小于N的提案。</p>
+<p>阶段二（accept阶段）：发提案</p>
+<p>(a) 如果一个Proposer收到半数以上Acceptor对其发出的编号为N的Prepare请求的响应，那么它就会发送一个针对[N,V]提案的Accept请求给半数以上的Acceptor。注意：V就是收到的响应中编号最大的提案的value（某个acceptor响应的它已经通过的{acceptN，acceptV}），如果响应中不包含任何提案，那么V就由Proposer自己决定。</p>
+<p>(b) 如果Acceptor收到一个针对编号为N的提案的Accept请求，只要该Acceptor没有对编号大于N的Prepare请求做出过响应，它就接受该提案。如果N小于Acceptor以及响应的prepare请求，则拒绝，不回应或回复error（当proposer没有收到过半的回应，那么他会重新进入第一阶段，递增提案号，重新提出prepare请求）。</p>
+<p><img src="https://tcs.teambition.net/storage/311z2c484ec59b918582844078b54df98e09?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXoyYzQ4NGVjNTliOTE4NTgyODQ0MDc4YjU0ZGY5OGUwOSJ9.4o-627bzCDlP585DstjbCYNYswhaKrkOyHWHSHbpzFs" alt="img"></p>
+<p>正常流程：</p>
+<p><img src="https://tcs.teambition.net/storage/311z3f4e4c12af7038d2c74ee9af82aa3af2?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXozZjRlNGMxMmFmNzAzOGQyYzc0ZWU5YWY4MmFhM2FmMiJ9.J9t2BIs6o40DCzOrByE-jbvsndgStgJYuYNloF0nkzo" alt="img"></p>
+<p>特殊情况：</p>
+<ol>
+<li>Proposer提议正常，部分acceptor失败</li>
+</ol>
+<ul>
+<li>proposer发现已经超过半数成功，那么还是认为提议成功，并把消息传递给learner，由learner角色将确定的提议通知给所有accpetor，最终使最后未响应的accpetor也同步更新，通过learner角色使所有Acceptor达到最终一致性。、</li>
+<li>proposer发现未达到超过半数同意条件，proposer要么直接提示失败，要么递增版本号重新发起提议，如果重新发起提议对于第一次写入成功的accpetor不会修改，另外两个accpetor会重新接受提议，达到最终成功。</li>
+</ul>
+<p><img src="https://tcs.teambition.net/storage/311z15487d387feb03d79c08c6c8e1bfb4fd?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXoxNTQ4N2QzODdmZWIwM2Q3OWMwOGM2YzhlMWJmYjRmZCJ9.Nk2DitLhsUgVTs-Mp66HmKzeBVN-omVHql_7LeD_98Q" alt="img"></p>
+<p><strong>Learner学习：</strong></p>
+<p><img src="https://tcs.teambition.net/storage/311z1728751f34019b98f297bf7eaf650fce?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXoxNzI4NzUxZjM0MDE5Yjk4ZjI5N2JmN2VhZjY1MGZjZSJ9.agGMooNHnlG8mmePb0iaQ9H6YNhd4bLqBCBRJ6vG_Ac" alt="img"></p>
+<p><strong>特点：</strong></p>
+<ul>
+<li>一个或多个节点可以提出提议</li>
+<li>系统针对所有提案中的某个提案必须达成一致</li>
+<li>最多只能对一个确定的提案达成一致</li>
+<li>只要超过半数的节点存活且可互相通信，整个系统一定能达成一致状态</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<p>多leader形成活锁</p>
+<p><img src="https://tcs.teambition.net/storage/311z967514781a0a812665e57cb8beb2e1e8?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXo5Njc1MTQ3ODFhMGE4MTI2NjVlNTdjYjhiZWIyZTFlOCJ9.B77RC53Fs781QJLngg0rCBW97tuL1CwSeNfH2ij900c" alt="img"></p>
+<h2 id="Multi-Paxos"><a href="#Multi-Paxos" class="headerlink" title="Multi Paxos"></a>Multi Paxos</h2><p>原始的Paxos算法（Basic Paxos）只能对一个值形成决议，决议的形成至少需要两次网络来回，在高并发情况下可能需要更多的网络来回，极端情况下甚至可能形成活锁。如果想连续确定多个值，Basic Paxos搞不定了。因此Basic Paxos几乎只是用来做理论研究，并不直接应用在实际工程中。</p>
+<p>Multi-Paxos基于Basic Paxos做了两点改进：</p>
+<ol>
+<li>在所有Proposers中选举一个Leader，由Leader唯一地提交Proposal给Acceptors进行表决。这样没有Proposer竞争，解决了活锁问题。在系统中仅有一个Leader进行Value提交的情况下，Prepare阶段就可以跳过，从而将两阶段变为一阶段，提高效率。</li>
+<li>针对每一个要确定的值，运行一次Paxos算法实例（Instance），形成决议。每一个Paxos实例使用唯一的Instance ID标识。</li>
+</ol>
+<p><img src="https://tcs.teambition.net/storage/311zbfddc75e837f783507056b6e674f0bac?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXpiZmRkYzc1ZTgzN2Y3ODM1MDcwNTZiNmU2NzRmMGJhYyJ9.cUBgDu97EsuAHY5TebSd0qtdDAvHufzi6SreujQH_3A" alt="img"></p>
+<p><strong>Leader选举</strong></p>
+<p>一个最简单的选举方法，就是Server ID最大的当Leader。</p>
+<p>每个Server间隔T时间向其他Server发送心跳包，如果一个Server在2T时间内没有收到来自更高ID的心跳，那么它就成为Leader。其他Proposer，必须拒绝客户端的请求，或将请求转发给Leader。</p>
+<p><strong>省略Prepare阶段</strong></p>
+<p>Prepare的作用是阻止旧的提案，以及检查是否有已接受的提案值。</p>
+<p>当只有一个Leader发送提案的时候，Prepare是不会产生冲突的，可以省略Prepare阶段，这样就可以减少一半RPC请求。</p>
+<p>在Leader发送第一个Prepare之后，只需要发送Accept请求。直到Accept被拒绝，就重新需要Prepare阶段。</p>
+<p>Chubby和Boxwood均使用Multi-Paxos。ZooKeeper使用的Zab也是Multi-Paxos的变形。</p>
+<h2 id="PBFT"><a href="#PBFT" class="headerlink" title="PBFT"></a>PBFT</h2><p><strong>前提：</strong>采用密码学算法保证节点之间的消息传送是不可篡改的。</p>
+<p><strong>基础概念：</strong></p>
+<p>1.Quorum (法定人数)：至少需要的同意票数量</p>
+<p>2.Liveness (活性)：算法能够顺利执行</p>
+<p>3.Safety (安全性)：所有节点的内容能保证一致</p>
+<p>(N &gt;= 3f + 1  )</p>
+<p>设总结点数 = N       恶意结点数 = f      法定人数 = Q</p>
+<p>（1）满足Liveness： Q &lt;= N – f  </p>
+<p>（2）满足Safety：     2Q – N &gt; f</p>
+<p>由（1）（2）可得：N + f &lt; 2Q &lt;= 2 (N - f)</p>
+<p>​                          N &gt;= 3f + 1 &amp;&amp;  Q &gt;= 2f + 1  </p>
+<p><img src="https://tcs.teambition.net/storage/311z7a223d898e85f035bab301630b23ce09?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzMxMXo3YTIyM2Q4OThlODVmMDM1YmFiMzAxNjMwYjIzY2UwOSJ9.G3ijH6i74atk2ivdK7gs_qWjpxGsjz9LlacWbQlnLiU" alt="img"></p>
+<p>Pre-Prepare: 通知所有 Replicas原始消息，给定序号</p>
+<p>Prepare：Replicas之间互相交流，收到 2f 个认可即发送 Commit</p>
+<p>Commit: 收到 2f 认可即执行</p>
+<p>Reply：反馈执行结果， client只需要收到 f+1 个认可</p>
+<ul>
+<li><strong>leader的作用</strong></li>
+</ul>
+<p>广播Request后，和其他节点是同等地位。</p>
+<ul>
+<li><strong>视图转换</strong></li>
+</ul>
+<p>视图转换保证共识协议的活性（liveness）<strong>。</strong>当主节点出故障时能保证共识能继续进行。每个备份节点收到一个请求是都会开始一个定时器。如果在一个视图内，时钟超时，该备份节点会发起一个视图转换的消息。主节点切换采用 round-robin 方式： p = v mod |R| 。</p>
+<ul>
+<li><strong>checkpoint</strong></li>
+</ul>
+<p>执行K条请求（例如：100条）后执行一次状态同步。</p>
+<p>设置高低水位 [h, H] , 低水位 h=上一个stable checkpoint，高水位 H=h+L，L为指定的数值。</p>
+<h3 id="HotStuff"><a href="#HotStuff" class="headerlink" title="HotStuff"></a>HotStuff</h3><p><img src="https://tcs.teambition.net/storage/111t3c2f22205185da1916b5fcece476c2c2?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzExMXQzYzJmMjIyMDUxODVkYTE5MTZiNWZjZWNlNDc2YzJjMiJ9.uH-hQ3BUrB1Hx3GcG3fkEkCqwJuQ4joNd0i-DC3kabY" alt="img"></p>
+<ol>
+<li>网状网络 =&gt; 星形网络（门限签名）</li>
+<li>将视图切换纳入正常流程，简化了视图转换的复杂度</li>
+<li>链式确认，出块更快。我们认可一个区块，实际上也是对于该区块父区块的认可。在链式的HotStuff中，可以将区块的确认放在下一个区块中，只要一个区块后面产生了三个连续区块，那么就说明该区块经过了三轮投票确认。</li>
+</ol>
+<p><img src="https://tcs.teambition.net/storage/111u577e1ea67f0640f22673044ba297cad0?Signature=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJBcHBJRCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9hcHBJZCI6IjU5Mzc3MGZmODM5NjMyMDAyZTAzNThmMSIsIl9vcmdhbml6YXRpb25JZCI6IiIsImV4cCI6MTYyOTg4NzMxOCwiaWF0IjoxNjI5MjgyNTE4LCJyZXNvdXJjZSI6Ii9zdG9yYWdlLzExMXU1NzdlMWVhNjdmMDY0MGYyMjY3MzA0NGJhMjk3Y2FkMCJ9.kUXfTMi8KcQaNsx4go0AE0c_UaN_C27cl8WgnTlv4dY" alt="img"></p>
+<h3 id="LibraBFT"><a href="#LibraBFT" class="headerlink" title="LibraBFT"></a>LibraBFT</h3><p>对HotStuff的扩展和修改</p>
+<ol>
+<li>通过让验证器对块的结果状态(而不仅仅是交易序列)进行集体签名，使协议更能抵抗非确定性错误。</li>
+<li>设计了一个不可预测的领导者选举机制，其中一轮的领导者由最新提交的块的提议者使用可验证的随机函数VRF 确定。 这种机制限制了攻击者可以针对领导者发起有效拒绝服务攻击的时间窗口。 </li>
+</ol>
+<h2 id="论文"><a href="#论文" class="headerlink" title="论文:"></a>论文:</h2><p>Paxos: <a target="_blank" rel="noopener" href="https://lamport.azurewebsites.net/pubs/paxos-simple.pdf">https://lamport.azurewebsites.net/pubs/paxos-simple.pdf</a></p>
+<p>PBFT: <a target="_blank" rel="noopener" href="http://www.pmg.lcs.mit.edu/papers/osdi99.pdf">http://www.pmg.lcs.mit.edu/papers/osdi99.pdf</a></p>
+<p>HotStuff: <a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1803.05069.pdf">https://arxiv.org/pdf/1803.05069.pdf</a></p>
+<p>LibraBFT: <a target="_blank" rel="noopener" href="https://developers.libra.org/docs/assets/papers/libra-consensus-state-machine-replication-in-the-libra-blockchain/2020-05-26.pdf">https://developers.libra.org/docs/assets/papers/libra-consensus-state-machine-replication-in-the-libra-blockchain/2020-05-26.pdf</a></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/07/09/%E6%8E%A7%E5%88%B6Goroutine%E5%B9%B6%E5%8F%91%E6%95%B0%E9%87%8F/" rel="prev" title="控制Goroutine并发数量">
+      <i class="fa fa-chevron-left"></i> 控制Goroutine并发数量
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#CAP-%E5%AE%9A%E7%90%86"><span class="nav-number">1.</span> <span class="nav-text">CAP 定理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%86%E5%8C%BA%E5%AE%B9%E9%94%99%E6%80%A7-Partition-Tolerance"><span class="nav-number">1.1.</span> <span class="nav-text">分区容错性(Partition Tolerance)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E8%87%B4%E6%80%A7-Consistence"><span class="nav-number">1.2.</span> <span class="nav-text">一致性(Consistence)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AF%E7%94%A8%E6%80%A7-Availability"><span class="nav-number">1.3.</span> <span class="nav-text">可用性(Availability)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#CAP%E5%BA%94%E7%94%A8"><span class="nav-number">1.4.</span> <span class="nav-text">CAP应用</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Basic-Paxos"><span class="nav-number">2.</span> <span class="nav-text">Basic Paxos</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Multi-Paxos"><span class="nav-number">3.</span> <span class="nav-text">Multi Paxos</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#PBFT"><span class="nav-number">4.</span> <span class="nav-text">PBFT</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#HotStuff"><span class="nav-number">4.1.</span> <span class="nav-text">HotStuff</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#LibraBFT"><span class="nav-number">4.2.</span> <span class="nav-text">LibraBFT</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BA%E6%96%87"><span class="nav-number">5.</span> <span class="nav-text">论文:</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="wsc"
+      src="/images/taiyi.jpg">
+  <p class="site-author-name" itemprop="name">wsc</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">62</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">14</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">wsc</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+  <script>
+    (function(){
+      var bp = document.createElement('script');
+      var curProtocol = window.location.protocol.split(':')[0];
+      bp.src = (curProtocol === 'https') ? 'https://zz.bdstatic.com/linksubmit/push.js' : 'http://push.zhanzhang.baidu.com/push.js';
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(bp, s);
+    })();
+  </script>
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'bd7618242036ebde2cee',
+      clientSecret: 'fa1cdf39239c7bcfca74904d378cc460428cad73',
+      repo        : 'blog-comment',
+      owner       : 'wang-sicheng',
+      admin       : ['wang-sicheng'],
+      id          : 'a676607444a8bc8b150c9a3aff884e61',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+
+  
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'bd7618242036ebde2cee',
+      clientSecret: 'fa1cdf39239c7bcfca74904d378cc460428cad73',
+      repo        : 'blog-comment',
+      owner       : 'wang-sicheng',
+      admin       : ['wang-sicheng'],
+      id          : 'd30b5690ed275780886968a83225cf61',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>
