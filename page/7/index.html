@@ -193,6 +193,328 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://codingpages.sicheng.wang/2019/09/13/%E5%85%A8%E6%8E%92%E5%88%97/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/taiyi.jpg">
+      <meta itemprop="name" content="wsc">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="静">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/13/%E5%85%A8%E6%8E%92%E5%88%97/" class="post-title-link" itemprop="url">全排列</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-13 22:59:19" itemprop="dateCreated datePublished" datetime="2019-09-13T22:59:19+08:00">2019-09-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-10 10:11:11" itemprop="dateModified" datetime="2022-02-10T10:11:11+08:00">2022-02-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Code/" itemprop="url" rel="index"><span itemprop="name">Code</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 求数组的全排列</span></span><br><span class="line"><span class="keyword">public</span> List&lt;List&lt;Integer&gt;&gt; permute(<span class="keyword">int</span>[] nums) &#123;</span><br><span class="line">    List&lt;List&lt;Integer&gt;&gt; ans = <span class="keyword">new</span> LinkedList();</span><br><span class="line">    List&lt;Integer&gt; line = <span class="keyword">new</span> LinkedList();</span><br><span class="line">    line.add(nums[<span class="number">0</span>]);</span><br><span class="line">    ans.add(line);</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt; nums.length; i++)&#123;</span><br><span class="line">        List&lt;List&lt;Integer&gt;&gt; new_ans = <span class="keyword">new</span> LinkedList();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= i; j++)&#123;</span><br><span class="line">            <span class="keyword">for</span>(List&lt;Integer&gt; l : ans)&#123;</span><br><span class="line">                List&lt;Integer&gt; new_line = <span class="keyword">new</span> LinkedList(l);</span><br><span class="line">                new_line.add(j, nums[i]);</span><br><span class="line">                new_ans.add(new_line);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        ans = new_ans;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/09/13/%E5%85%A8%E6%8E%92%E5%88%97/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://codingpages.sicheng.wang/2019/09/13/%E5%AD%90%E9%9B%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/taiyi.jpg">
+      <meta itemprop="name" content="wsc">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="静">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/13/%E5%AD%90%E9%9B%86/" class="post-title-link" itemprop="url">子集</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-13 09:01:45" itemprop="dateCreated datePublished" datetime="2019-09-13T09:01:45+08:00">2019-09-13</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-10 10:11:11" itemprop="dateModified" datetime="2022-02-10T10:11:11+08:00">2022-02-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Code/" itemprop="url" rel="index"><span itemprop="name">Code</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 求不包含重复数字的数组的子集</span></span><br><span class="line">List&lt;List&lt;Integer&gt;&gt; ans = <span class="keyword">new</span> LinkedList();</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">backtrack</span><span class="params">(List&lt;Integer&gt; list, <span class="keyword">int</span>[] nums, <span class="keyword">int</span> start)</span></span>&#123;</span><br><span class="line">    ans.add(<span class="keyword">new</span> LinkedList(list));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = start; i &lt; nums.length; i++)&#123;</span><br><span class="line">        list.add(nums[i]);</span><br><span class="line">        backtrack(list, nums, i + <span class="number">1</span>);</span><br><span class="line">        list.remove(list.size() - <span class="number">1</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/09/13/%E5%AD%90%E9%9B%86/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://codingpages.sicheng.wang/2019/09/08/Hexo-Github%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/taiyi.jpg">
+      <meta itemprop="name" content="wsc">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="静">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/08/Hexo-Github%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/" class="post-title-link" itemprop="url">Hexo+Github</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-08 08:46:53" itemprop="dateCreated datePublished" datetime="2019-09-08T08:46:53+08:00">2019-09-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-10 10:11:11" itemprop="dateModified" datetime="2022-02-10T10:11:11+08:00">2022-02-10</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>1.注册一个域名（sicheng.wang）</p>
+<p>2.添加解析</p>
+<p>添加两个解析:<br>第一个作用于 <a target="_blank" rel="noopener" href="http://www.sicheng.wang/">www.sicheng.wang</a> </p>
+<img src="/2019/09/08/Hexo-Github%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/09/08/Hexo-Github%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/domin1.png" class title="解析">
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/09/08/Hexo-Github%E5%9F%9F%E5%90%8D%E7%BB%91%E5%AE%9A/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://codingpages.sicheng.wang/2019/09/08/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%9B%9B%E4%B8%AA%E9%9B%86%E5%90%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/taiyi.jpg">
+      <meta itemprop="name" content="wsc">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="静">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/09/08/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%9B%9B%E4%B8%AA%E9%9B%86%E5%90%88/" class="post-title-link" itemprop="url">编译原理四个集合</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-09-08 08:42:13" itemprop="dateCreated datePublished" datetime="2019-09-08T08:42:13+08:00">2019-09-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2022-02-10 10:11:11" itemprop="dateModified" datetime="2022-02-10T10:11:11+08:00">2022-02-10</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>   在编译原理语法分析阶段，有四个十分抽象的集合：LL(1)分析法的First集、Follow集，算法优先分析法的Firstvt集、Lastvt集。下面是求这四个集合的具象方法。注意：First、Follow、Firstvt和Lastvt四个集合都是针对非终结符而言的，终结符没有这四个集合……</p>
+<h1 id="First"><a href="#First" class="headerlink" title="First"></a>First</h1><p>求First(A)，观察以A为左部的所有产生式：</p>
+<ul>
+<li><p>直接收取：</p>
+<ul>
+<li>A -&gt; a… ，则 a ∈ First(A)</li>
+<li>A -&gt; ε ，则 ε ∈ First(A)</li>
+</ul>
+</li>
+<li><p>反复传递：A -&gt; BC…</p>
+<ul>
+<li><p>如果First(B)不含ε：First(B) ⊆ First(A)</p>
+</li>
+<li><p>如果First(B)含有ε：First(B) - {ε} ⊆ First(A)，并且还要对 A -&gt; C… 进行传递收取</p></li></ul></li></ul>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/2019/09/08/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86%E5%9B%9B%E4%B8%AA%E9%9B%86%E5%90%88/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://codingpages.sicheng.wang/2019/09/08/Hexo%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -224,7 +546,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-18 18:45:22" itemprop="dateModified" datetime="2021-08-18T18:45:22+08:00">2021-08-18</time>
+                <time title="修改时间：2022-02-10 10:11:11" itemprop="dateModified" datetime="2022-02-10T10:11:11+08:00">2022-02-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -310,7 +632,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-08-18 18:45:22" itemprop="dateModified" datetime="2021-08-18T18:45:22+08:00">2021-08-18</time>
+                <time title="修改时间：2022-02-10 10:11:11" itemprop="dateModified" datetime="2022-02-10T10:11:11+08:00">2022-02-10</time>
               </span>
 
           
@@ -339,7 +661,7 @@
 </li>
 <li><p>ssh连接raspberry</p>
 <blockquote>
-<p>$ ssh <a href="mailto:&#112;&#x69;&#x40;&#49;&#57;&#x32;&#x2e;&#x31;&#x36;&#56;&#46;&#x33;&#x31;&#46;&#x31;&#48;&#x38;">&#112;&#x69;&#x40;&#49;&#57;&#x32;&#x2e;&#x31;&#x36;&#56;&#46;&#x33;&#x31;&#46;&#x31;&#48;&#x38;</a></p>
+<p>$ ssh <a href="mailto:&#x70;&#105;&#64;&#x31;&#57;&#x32;&#46;&#x31;&#54;&#x38;&#46;&#51;&#x31;&#46;&#x31;&#48;&#56;">&#x70;&#105;&#64;&#x31;&#57;&#x32;&#46;&#x31;&#54;&#x38;&#46;&#51;&#x31;&#46;&#x31;&#48;&#56;</a></p>
 </blockquote>
 <p> 在这里收到了connection refused。解决办法是在sd卡的根目录下加上一个ssh空白文件（无后缀）。</p>
 </li>
@@ -495,7 +817,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">62</span>
+          <span class="site-state-item-count">66</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -531,7 +853,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
